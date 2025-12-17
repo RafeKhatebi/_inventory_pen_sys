@@ -18,7 +18,9 @@ Route::get('/test-route', function () {
 });
 
 // -------- AUTH --------
-Route::get('/login', function() { return response()->json(['message' => 'Login endpoint - use POST method with credentials']); });
+Route::get('/login', function () {
+    return response()->json(['message' => 'Login endpoint - use POST method with credentials']);
+});
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth:sanctum');
