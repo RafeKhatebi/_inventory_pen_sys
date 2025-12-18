@@ -18,4 +18,10 @@ class Customer extends Model
     {
         return $this->hasMany(Credit::class);
     }
+
+    public function totalCredit()
+    {
+        return $this->credits()->where('type', 'sale')->sum('amount') -
+            $this->credits()->where('type', 'payment')->sum('amount');
+    }
 }
