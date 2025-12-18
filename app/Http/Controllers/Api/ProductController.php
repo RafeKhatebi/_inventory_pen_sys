@@ -19,8 +19,8 @@ class ProductController extends Controller
             $search = $request->get('search');
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'LIKE', "%{$search}%")
-                  ->orWhere('type', 'LIKE', "%{$search}%")
-                  ->orWhere('package_type', 'LIKE', "%{$search}%");
+                    ->orWhere('type', 'LIKE', "%{$search}%")
+                    ->orWhere('package_type', 'LIKE', "%{$search}%");
             });
         }
 
@@ -57,7 +57,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request): JsonResponse
     {
         $product = Product::create($request->validated());
-        
+
         return response()->json([
             'message' => 'Product created successfully',
             'product' => $product
@@ -72,7 +72,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product): JsonResponse
     {
         $product->update($request->validated());
-        
+
         return response()->json([
             'message' => 'Product updated successfully',
             'product' => $product
@@ -82,7 +82,7 @@ class ProductController extends Controller
     public function destroy(Product $product): JsonResponse
     {
         $product->delete();
-        
+
         return response()->json([
             'message' => 'Product deleted successfully'
         ]);
