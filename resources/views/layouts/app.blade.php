@@ -2,56 +2,58 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
     <title>@yield('title', 'Inventory System')</title>
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
+    <!-- CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap.min.css') }}">
+    {{--
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> --}}
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
     @stack('styles')
 </head>
 
 <body>
-
-    @include('partials.navbar')
+    <!-- Sidebar -->
     @include('partials.sidebar')
 
-    <div class="main-content">
-        @yield('content')
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        @include('partials.navbar')
+
+        <!-- Main Content Area -->
+        <div class="container-fluid mt-3">
+            @yield('content')
+        </div>
     </div>
 
-    @include('partials.footer')
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar toggle
+        document.querySelector('.sidebar-toggler').addEventListener('click', function () {
+            document.querySelector('.sidebar').classList.toggle('open');
+            document.querySelector('.content').classList.toggle('open');
+        });
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('assets/lib/chart/chart.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/easing/easing.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/waypoints/waypoints.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/owlcarousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/tempusdominus/js/moment.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-    @stack('scripts')
+        // Close sidebar on mobile when clicking outside
+        document.addEventListener('click', function (event) {
+            const sidebar = document.querySelector('.sidebar');
+            const toggler = document.querySelector('.sidebar-toggler');
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile && sidebar.classList.contains('open') &&
+                !sidebar.contains(event.target) &&
+                !toggler.contains(event.target)) {
+                sidebar.classList.remove('open');
+                document.querySelector('.content').classList.remove('open');
+            }
+        });
+    </script>
 
     @stack('scripts')
 </body>

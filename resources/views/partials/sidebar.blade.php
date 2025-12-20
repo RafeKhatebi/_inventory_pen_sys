@@ -1,59 +1,142 @@
 <div class="sidebar pe-4 pb-3">
     <nav class="navbar bg-light navbar-light">
-        <a href="index.html" class="navbar-brand mx-4 mb-3">
-            <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
-        </a>
-        <div class="d-flex align-items-center ms-4 mb-4">
-            <div class="position-relative">
-                <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                <div
-                    class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
-                </div>
-            </div>
-            <div class="ms-3">
-                <h6 class="mb-0">Jhon Doe</h6>
-                <span>Admin</span>
-            </div>
+        <!-- Logo and User Profile on same line -->
+        <div class="d-flex justify-content-between align-items-center mx-4 mb-3">
+            <!-- Logo/Brand -->
+            <a href="{{ route('dashboard') }}" class="navbar-brand p-0 m-0">
+                <h3 class="text-primary m-0">
+                    <i class="fa fa-boxes me-2"></i>INVENTORY
+                </h3>
+            </a>
         </div>
-        <div class="navbar-nav w-100">
-            <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                        class="fa fa-laptop me-2"></i>Inventory</a>
-                <div class="dropdown-menu bg-transparent border-0">
-                    <a href="button.html" class="dropdown-item">Buttons</a>
-                    <a href="typography.html" class="dropdown-item">Typography</a>
-                    <a href="element.html" class="dropdown-item">Other Elements</a>
-                </div>
-            </div>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                        class="fa fa-laptop me-2"></i>Products</a>
-                <div class="dropdown-menu bg-transparent border-0">
-                    <a href="button.html" class="dropdown-item">Buttons</a>
-                    <a href="typography.html" class="dropdown-item">Typography</a>
-                    <a href="element.html" class="dropdown-item">Other Elements</a>
-                </div>
-            </div>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                        class="fa fa-laptop me-2"></i>People</a>
-                <div class="dropdown-menu bg-transparent border-0">
-                    <a href="button.html" class="dropdown-item">Buttons</a>
-                    <a href="typography.html" class="dropdown-item">Typography</a>
-                    <a href="element.html" class="dropdown-item">Other Elements</a>
-                </div>
-            </div>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                        class="fa fa-laptop me-2"></i>Reports</a>
-                <div class="dropdown-menu bg-transparent border-0">
-                    <a href="button.html" class="dropdown-item">Buttons</a>
-                    <a href="typography.html" class="dropdown-item">Typography</a>
-                    <a href="element.html" class="dropdown-item">Other Elements</a>
-                </div>
+        <!-- User Info Below -->
+        <div class="px-4 mb-4">
+            <div class="text-center">
+                <h6 class="mb-0 fw-bold">Admin User</h6>
+                <span class="text-primary small">Administrator</span>
             </div>
         </div>
 
+        <!-- Rest of your navigation menu stays the same -->
+        <div class="navbar-nav w-100 px-3">
+            <!-- ... all your nav items here ... -->
+            <div class="navbar-nav w-100">
+                <!-- Dashboard -->
+                <a href="{{ route('dashboard') }}"
+                    class="nav-item nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <i class="fa fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+
+                <!-- Products -->
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('products.*') ? 'active' : '' }}"
+                        data-bs-toggle="dropdown">
+                        <i class="fa fa-box me-2"></i>Products
+                    </a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="{{ route('products.index') }}"
+                            class="dropdown-item {{ request()->routeIs('products.index') ? 'active' : '' }}">
+                            <i class="fa fa-list me-2"></i>All Products
+                        </a>
+                        <a href="{{ route('products.create') }}"
+                            class="dropdown-item {{ request()->routeIs('products.create') ? 'active' : '' }}">
+                            <i class="fa fa-plus-circle me-2"></i>Add New Product
+                        </a>
+                    </div>
+                </div>
+                <!-- Customers -->
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('customers.*') ? 'active' : '' }}"
+                        data-bs-toggle="dropdown">
+                        <i class="fa fa-users me-2"></i>Customers
+                    </a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="{{ route('customers.index') }}"
+                            class="dropdown-item {{ request()->routeIs('customers.index') ? 'active' : '' }}">
+                            <i class="fa fa-list me-2"></i>All Customers
+                        </a>
+                        <a href="{{ route('customers.create') }}"
+                            class="dropdown-item {{ request()->routeIs('customers.create') ? 'active' : '' }}">
+                            <i class="fa fa-user-plus me-2"></i>Add Customer
+                        </a>
+                        <a href="{{ route('customers.transactions') }}"
+                            class="dropdown-item {{ request()->routeIs('customers.transactions') ? 'active' : '' }}">
+                            <i class="fa fa-exchange-alt me-2"></i>Transactions
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Inventory -->
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('stocks.*') ? 'active' : '' }}"
+                        data-bs-toggle="dropdown">
+                        <i class="fa fa-warehouse me-2"></i>Inventory
+                    </a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="{{ route('stocks.index') }}"
+                            class="dropdown-item {{ request()->routeIs('stocks.index') ? 'active' : '' }}">
+                            <i class="fa fa-boxes me-2"></i>Stock Overview
+                        </a>
+                        <a href="{{ route('stocks.in.create') }}"
+                            class="dropdown-item {{ request()->routeIs('stocks.in.*') ? 'active' : '' }}">
+                            <i class="fa fa-arrow-down me-2"></i>Stock In
+                        </a>
+                        <a href="{{ route('stocks.out.create') }}"
+                            class="dropdown-item {{ request()->routeIs('stocks.out.*') ? 'active' : '' }}">
+                            <i class="fa fa-arrow-up me-2"></i>Stock Out
+                        </a>
+                        <a href="{{ route('stocks.history') }}"
+                            class="dropdown-item {{ request()->routeIs('stocks.history') ? 'active' : '' }}">
+                            <i class="fa fa-history me-2"></i>Stock History
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Reports -->
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('reports.*') ? 'active' : '' }}"
+                        data-bs-toggle="dropdown">
+                        <i class="fa fa-chart-bar me-2"></i>Reports
+                    </a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="{{ route('reports.inventory.index') }}"
+                            class="dropdown-item {{ request()->routeIs('reports.inventory') ? 'active' : '' }}">
+                            <i class="fa fa-boxes me-2"></i>Inventory Report
+                        </a>
+                        <a href="{{ route('reports.customers.index') }}"
+                            class="dropdown-item {{ request()->routeIs('reports.customers.index') ? 'active' : '' }}">
+                            <i class="fa fa-users me-2"></i>Customer Report
+                        </a>
+
+                        <a href="{{ route('reports.complete-summary.index') }}"
+                            class="dropdown-item {{ request()->routeIs('reports.complete-summary.index') ? 'active' : '' }}">
+                            <i class="fa fa-calendar-day me-2"></i>Complete Summary
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Settings -->
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('settings.*') ? 'active' : '' }}"
+                        data-bs-toggle="dropdown">
+                        <i class="fa fa-cog me-2"></i>Settings
+                    </a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="{{ route('settings.settings.index') }}"
+                            class="dropdown-item {{ request()->routeIs('settings.settings.index') ? 'active' : '' }}">
+                            <i class="fa fa-cogs me-2"></i>General Settings
+                        </a>
+                        <a href="{{ route('settings.users.index') }}"
+                            class="dropdown-item {{ request()->routeIs('settings.users.index') ? 'active' : '' }}">
+                            <i class="fa fa-user-cog me-2"></i>User Management
+                        </a>
+                        <a href="{{ route('settings.backup.index') }}"
+                            class="dropdown-item {{ request()->routeIs('settings.backup.index') ? 'active' : '' }}">
+                            <i class="fa fa-database me-2"></i>Backup & Restore
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </nav>
 </div>

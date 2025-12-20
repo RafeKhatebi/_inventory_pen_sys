@@ -7,7 +7,7 @@
         <!-- Page Header -->
         <div class="d-flex justify-content-between align-items-center mb-1">
             <div>
-                <h3 class="mb-1">Stock in Product</h3>
+                <h3 class="mb-1">Add New User</h3>
             </div>
             <div>
                 <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">

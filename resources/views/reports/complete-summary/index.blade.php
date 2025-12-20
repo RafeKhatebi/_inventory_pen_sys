@@ -1,23 +1,26 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', 'Inventory-Reports')
 
 @section('content')
     <div class="container-fluid">
         <!-- Page Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h3 class="mb-1">Dashboard Overview</h3>
+                <h3 class="mb-1">Inventory Reports Overview</h3>
                 <p class="text-muted mb-0">Welcome back, Admin! Here's what's happening today.</p>
             </div>
             <div>
-                <button class="btn btn-primary btn-sm me-2">
-                    <i class="fa fa-plus me-1"></i> Quick Sale
-                </button>
-                <button class="btn btn-outline-primary btn-sm">
-                    <i class="fa fa-download me-1"></i> Export
-                </button>
             </div>
+        </div>
+        <div class="d-flex justify-items-center align-items-center mb-4">
+            <label for="search" class="form-control">Search</label>
+            <label for="text">Start Date: </label>
+            <input type="search" class="form-control">
+            <label for="text">End Date: </label>
+            <input type="search" class="form-control">
+
+
         </div>
 
         <!-- Stats Cards -->
@@ -29,8 +32,8 @@
                             <i class="fa fa-rupee-sign fa-2x text-white"></i>
                         </div>
                         <div>
-                            <p class="mb-1">Today's Sales</p>
-                            <h4 class="mb-0">₹25,480</h4>
+                            <p class="mb-1">Total Products</p>
+                            <h4 class="mb-0">25,480</h4>
                             <small class="text-success">
                                 <i class="fa fa-arrow-up me-1"></i> 12%
                             </small>
@@ -45,7 +48,7 @@
                             <i class="fa fa-chart-bar fa-2x text-white"></i>
                         </div>
                         <div>
-                            <p class="mb-1">Total Revenue</p>
+                            <p class="mb-1">Total Types</p>
                             <h4 class="mb-0">₹1,25,480</h4>
                             <small class="text-success">
                                 <i class="fa fa-arrow-up me-1"></i> 8%
@@ -61,7 +64,74 @@
                             <i class="fa fa-users fa-2x text-white"></i>
                         </div>
                         <div>
-                            <p class="mb-1">Total Customers</p>
+                            <p class="mb-1">Low Stock</p>
+                            <h4 class="mb-0">245</h4>
+                            <small class="text-success">
+                                <i class="fa fa-user-plus me-1"></i> +5
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-danger p-3 me-3">
+                            <i class="fa fa-exclamation-triangle fa-2x text-white"></i>
+                        </div>
+                        <div>
+                            <p class="mb-1">Low Stock Items</p>
+                            <h4 class="mb-0">12</h4>
+                            <small class="text-danger">
+                                <i class="fa fa-arrow-down me-1"></i> Needs attention
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Stats Cards -->
+        <div class="row g-4 mb-4">
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-primary p-3 me-3">
+                            <i class="fa fa-rupee-sign fa-2x text-white"></i>
+                        </div>
+                        <div>
+                            <p class="mb-1">Total Products</p>
+                            <h4 class="mb-0">25,480</h4>
+                            <small class="text-success">
+                                <i class="fa fa-arrow-up me-1"></i> 12%
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-success p-3 me-3">
+                            <i class="fa fa-chart-bar fa-2x text-white"></i>
+                        </div>
+                        <div>
+                            <p class="mb-1">Total Types</p>
+                            <h4 class="mb-0">₹1,25,480</h4>
+                            <small class="text-success">
+                                <i class="fa fa-arrow-up me-1"></i> 8%
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle bg-warning p-3 me-3">
+                            <i class="fa fa-users fa-2x text-white"></i>
+                        </div>
+                        <div>
+                            <p class="mb-1">Low Stock</p>
                             <h4 class="mb-0">245</h4>
                             <small class="text-success">
                                 <i class="fa fa-user-plus me-1"></i> +5

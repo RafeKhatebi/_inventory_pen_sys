@@ -1,45 +1,117 @@
-{{-- @extends('layouts.master') --}}
 @extends('layouts.auth')
-
 @section('title', 'Login')
-
 @section('content')
     <div class="container-fluid">
         <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
-            <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-                <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i> Login </h3>
-                    </div>
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+                <!-- Brand Header -->
+                <div class="text-center ">
+                    <h1 class="text-primary fw-bold mb-3">
+                        <i class="fa fa-boxes me-2"></i>INVENTORY SYSTEM
+                    </h1>
+                </div>
+                <!-- Login Card -->
+                <div class="bg-white rounded shadow-lg border-0 overflow-hidden">
+                    <div class="p-4 p-sm-5">
+                        <!-- Card Header -->
+                        <div class="text-center mb-4">
+                            <h3 class="text-dark mb-2">Welcome Back</h3>
+                            <p class="text-muted small">Enter your credentials to continue</p>
+                        </div>
 
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            @foreach ($errors->all() as $error)
-                                <div>{{ $error }}</div>
-                            @endforeach
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('login.post') }}">
-                        @csrf
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="floatingEmail"
-                                name="email" placeholder="name@example.com" value="{{ old('email') }}" required>
-                            <label for="floatingEmail">Email</label>
-                        </div>
-                        <div class="form-floating mb-4">
-                            <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                id="floatingPassword" name="password" placeholder="Password" required>
-                            <label for="floatingPassword">Password</label>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                                <label class="form-check-label" for="remember">Remember Me</label>
+                        <!-- Error Messages -->
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible fade show rounded" role="alert">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-exclamation-circle me-2"></i>
+                                    <div>
+                                        @foreach ($errors->all() as $error)
+                                            <div class="small">{{ $error }}</div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert"></button>
                             </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Login</button>
-                    </form>
+                        @endif
+
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show rounded" role="alert">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-check-circle me-2"></i>
+                                    <div class="small">{{ session('success') }}</div>
+                                </div>
+                                <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert"></button>
+                            </div>
+                        @endif
+
+                        <!-- Login Form -->
+                        <form method="POST" action="{{ route('login.post') }}" class="needs-validation" novalidate>
+                            @csrf
+
+                            <!-- Email Field -->
+                            <div class="mb-4">
+                                <label for="email" class="form-label text-dark fw-medium mb-2">
+                                    <i class="fa fa-envelope text-primary me-2"></i>Email Address
+                                </label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-light border-end-0">
+                                        <i class="fa fa-user text-muted"></i>
+                                    </span>
+                                    <input type="email"
+                                        class="form-control form-control-lg @error('email') is-invalid @enderror" id="email"
+                                        name="email" placeholder="name@example.com" value="{{ old('email') }}" required
+                                        autofocus>
+                                    @error('email')
+                                        <div class="invalid-feedback d-block">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Password Field -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label for="password" class="form-label text-dark fw-medium">
+                                        <i class="fa fa-lock text-primary me-2"></i>Password
+                                    </label>
+                                </div>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-light border-end-0">
+                                        <i class="fa fa-key text-muted"></i>
+                                    </span>
+                                    <input type="password"
+                                        class="form-control form-control-lg @error('password') is-invalid @enderror"
+                                        id="password" name="password" placeholder="Enter your password" required>
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    @error('password')
+                                        <div class="invalid-feedback d-block">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Remember Me -->
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                                    <label class="form-check-label text-muted" for="remember">
+                                        Remember me on this device
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="d-grid mb-4">
+                                <button type="submit" class="btn btn-primary btn-lg py-3 fw-bold">
+                                    <i class="fa fa-sign-in-alt me-2"></i>Log In
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
