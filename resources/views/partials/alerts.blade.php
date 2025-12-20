@@ -1,20 +1,45 @@
-<!-- Footer Start -->
-<div class="container-fluid pt-4 px-4">
-    <div class="bg-light rounded-top p-4">
-        <div class="row">
-            <div class="col-12 col-sm-6 text-center text-sm-start">
-                &copy; <a href="#">{{ config('app.name', 'Inventory System') }}</a>, All Rights Reserved.
-            </div>
-            <div class="col-12 col-sm-6 text-center text-sm-end">
-                <div class="d-inline">
-                    <a class="text-muted" href="{{ route('privacy') }}">Privacy Policy</a> |
-                    <a class="text-muted" href="{{ route('terms') }}">Terms & Conditions</a>
-                </div>
-                <div class="mt-2 mt-sm-0 d-inline">
-                    <span class="text-muted">v{{ config('app.version', '1.0.0') }}</span>
-                </div>
-            </div>
-        </div>
+<!-- Alert Messages -->
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show mx-3 mt-3" role="alert">
+        <i class="fa fa-check-circle me-2"></i>
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
-</div>
-<!-- Footer End -->
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show mx-3 mt-3" role="alert">
+        <i class="fa fa-exclamation-circle me-2"></i>
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
+
+@if(session('warning'))
+    <div class="alert alert-warning alert-dismissible fade show mx-3 mt-3" role="alert">
+        <i class="fa fa-exclamation-triangle me-2"></i>
+        {{ session('warning') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
+
+@if(session('info'))
+    <div class="alert alert-info alert-dismissible fade show mx-3 mt-3" role="alert">
+        <i class="fa fa-info-circle me-2"></i>
+        {{ session('info') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
+
+@if($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show mx-3 mt-3" role="alert">
+        <i class="fa fa-exclamation-circle me-2"></i>
+        <strong>Please fix the following errors:</strong>
+        <ul class="mb-0 mt-2">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
