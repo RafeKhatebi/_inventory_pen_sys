@@ -114,6 +114,23 @@
                         </a>
                     </div>
                 </div>
+                {{-- Users --}}
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('users.*') ? 'active' : '' }}"
+                        data-bs-toggle="dropdown">
+                        <i class="fa fa-chart-bar me-2"></i>Users
+                    </a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="{{ route('users.index') }}"
+                            class="dropdown-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
+                            <i class="fa fa-boxes me-2"></i>All Users
+                        </a>
+                        <a href="{{ route('users.create') }}"
+                            class="dropdown-item {{ request()->routeIs('users.create') ? 'active' : '' }}">
+                            <i class="fa fa-users me-2"></i>Add User
+                        </a>
+                    </div>
+                </div>
 
                 <!-- Settings -->
                 <div class="nav-item dropdown">
@@ -126,10 +143,10 @@
                             class="dropdown-item {{ request()->routeIs('settings.settings.index') ? 'active' : '' }}">
                             <i class="fa fa-cogs me-2"></i>General Settings
                         </a>
-                        <a href="{{ route('settings.users.index') }}"
+                        {{-- <a href="{{ route('settings.users.index') }}"
                             class="dropdown-item {{ request()->routeIs('settings.users.index') ? 'active' : '' }}">
                             <i class="fa fa-user-cog me-2"></i>User Management
-                        </a>
+                        </a> --}}
                         <a href="{{ route('settings.backup.index') }}"
                             class="dropdown-item {{ request()->routeIs('settings.backup.index') ? 'active' : '' }}">
                             <i class="fa fa-database me-2"></i>Backup & Restore

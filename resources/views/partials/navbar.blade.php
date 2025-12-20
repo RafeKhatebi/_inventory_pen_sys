@@ -40,10 +40,9 @@
                 <span class="d-none d-lg-inline-flex">Admin User</span>
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                <a href="/profile" class="dropdown-item">
+                <a href="/users/profile/index" class="dropdown-item">
                     <i class="fa fa-user me-2"></i> My Profile
                 </a>
-
                 <hr class="dropdown-divider">
                 <!-- In navbar.blade.php -->
                 <form method="POST" action="{{ route('logout') }}">

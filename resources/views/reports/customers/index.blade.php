@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Inventory-Reports')
+@section('title', 'Customer-Reports')
 
 @section('content')
     <div class="container-fluid">
         <!-- Page Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h3 class="mb-1">Inventory Reports Overview</h3>
+                <h3 class="mb-1">Customer Reports Overview</h3>
                 <p class="text-muted mb-0">Welcome back, Admin! Here's what's happening today.</p>
             </div>
             <div>
@@ -19,10 +19,7 @@
             <input type="search" class="form-control">
             <label for="text">End Date: </label>
             <input type="search" class="form-control">
-
-
         </div>
-
         <!-- Stats Cards -->
         <div class="row g-4 mb-4">
             <div class="col-sm-6 col-xl-3">
@@ -32,8 +29,8 @@
                             <i class="fa fa-rupee-sign fa-2x text-white"></i>
                         </div>
                         <div>
-                            <p class="mb-1">Total Products</p>
-                            <h4 class="mb-0">25,480</h4>
+                            <p class="mb-1">All Customers</p>
+                            <h4 class="mb-0">243</h4>
                             <small class="text-success">
                                 <i class="fa fa-arrow-up me-1"></i> 12%
                             </small>
@@ -48,7 +45,7 @@
                             <i class="fa fa-chart-bar fa-2x text-white"></i>
                         </div>
                         <div>
-                            <p class="mb-1">Total Types</p>
+                            <p class="mb-1">Total Sales</p>
                             <h4 class="mb-0">₹1,25,480</h4>
                             <small class="text-success">
                                 <i class="fa fa-arrow-up me-1"></i> 8%
@@ -64,7 +61,7 @@
                             <i class="fa fa-users fa-2x text-white"></i>
                         </div>
                         <div>
-                            <p class="mb-1">Low Stock</p>
+                            <p class="mb-1">Total Customers</p>
                             <h4 class="mb-0">245</h4>
                             <small class="text-success">
                                 <i class="fa fa-user-plus me-1"></i> +5
@@ -80,7 +77,7 @@
                             <i class="fa fa-exclamation-triangle fa-2x text-white"></i>
                         </div>
                         <div>
-                            <p class="mb-1">Low Stock Items</p>
+                            <p class="mb-1">Loan </p>
                             <h4 class="mb-0">12</h4>
                             <small class="text-danger">
                                 <i class="fa fa-arrow-down me-1"></i> Needs attention
@@ -90,74 +87,6 @@
                 </div>
             </div>
         </div>
-        <!-- Stats Cards -->
-        <div class="row g-4 mb-4">
-            <div class="col-sm-6 col-xl-3">
-                <div class="bg-light rounded p-4">
-                    <div class="d-flex align-items-center">
-                        <div class="rounded-circle bg-primary p-3 me-3">
-                            <i class="fa fa-rupee-sign fa-2x text-white"></i>
-                        </div>
-                        <div>
-                            <p class="mb-1">Total Products</p>
-                            <h4 class="mb-0">25,480</h4>
-                            <small class="text-success">
-                                <i class="fa fa-arrow-up me-1"></i> 12%
-                            </small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="bg-light rounded p-4">
-                    <div class="d-flex align-items-center">
-                        <div class="rounded-circle bg-success p-3 me-3">
-                            <i class="fa fa-chart-bar fa-2x text-white"></i>
-                        </div>
-                        <div>
-                            <p class="mb-1">Total Types</p>
-                            <h4 class="mb-0">₹1,25,480</h4>
-                            <small class="text-success">
-                                <i class="fa fa-arrow-up me-1"></i> 8%
-                            </small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="bg-light rounded p-4">
-                    <div class="d-flex align-items-center">
-                        <div class="rounded-circle bg-warning p-3 me-3">
-                            <i class="fa fa-users fa-2x text-white"></i>
-                        </div>
-                        <div>
-                            <p class="mb-1">Low Stock</p>
-                            <h4 class="mb-0">245</h4>
-                            <small class="text-success">
-                                <i class="fa fa-user-plus me-1"></i> +5
-                            </small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="bg-light rounded p-4">
-                    <div class="d-flex align-items-center">
-                        <div class="rounded-circle bg-danger p-3 me-3">
-                            <i class="fa fa-exclamation-triangle fa-2x text-white"></i>
-                        </div>
-                        <div>
-                            <p class="mb-1">Low Stock Items</p>
-                            <h4 class="mb-0">12</h4>
-                            <small class="text-danger">
-                                <i class="fa fa-arrow-down me-1"></i> Needs attention
-                            </small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Recent Transactions -->
         <div class="row">
             <div class="col-12">

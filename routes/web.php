@@ -76,23 +76,29 @@ Route::middleware('auth')->group(function () {
         return view('reports.complete-summary.index');
     })->name('reports.complete-summary.index');
 
+    //Users 
+    Route::get('/users/create', function () {
+        return view('users.create');
+    })->name('users.create');
+
+    Route::get('/users/index', function () {
+        return view('users.index');
+    })->name('users.index');
+    
+    // Profile -> User Profile
+    Route::get('/users/profile/index', function () {
+        return view('users.profile.index');
+    })->name('users.profile.index');
+
     // Settings
     Route::get('/settings/settings', function () {
         return view('settings.settings.index');
     })->name('settings.settings.index');
 
-    Route::get('/settings/users', function () {
-        return view('settings.users.index');
-    })->name('settings.users.index');
-
     Route::get('/settings/backup', function () {
         return view('settings.backup.index');
     })->name('settings.backup.index');
 
-    // Profile
-    Route::get('/profile', function () {
-        return view('profile.index');
-    })->name('profile.index');
 
     // Home redirect to dashboard
     Route::redirect('/home', '/dashboard');
