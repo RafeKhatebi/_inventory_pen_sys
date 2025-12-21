@@ -116,36 +116,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Quick Stats Sidebar -->
-            <div class="col-lg-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h6 class="mb-3">
-                            <i class="fa fa-lightbulb me-2 text-warning"></i>Quick Tips
-                        </h6>
-                        <ul class="list-unstyled small mb-0">
-                            <li class="mb-2">
-                                <i class="fa fa-check-circle text-success me-1"></i>
-                                Fill all required fields (*)
-                            </li>
-                            <li class="mb-2">
-                                <i class="fa fa-check-circle text-success me-1"></i>
-                                Set realistic stock levels
-                            </li>
-                            <li class="mb-2">
-                                <i class="fa fa-check-circle text-success me-1"></i>
-                                Add barcode for easier scanning
-                            </li>
-                            <li>
-                                <i class="fa fa-check-circle text-success me-1"></i>
-                                Set minimum stock for alerts
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
         </div>
     </div>
 @endsection

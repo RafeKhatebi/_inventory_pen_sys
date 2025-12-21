@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Inventory-Reports')
+@section('title', 'Backup Settings')
 
 @section('content')
     <div class="container-fluid">
@@ -8,12 +8,11 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h3 class="mb-1">Backup Overview</h3>
-                <p class="text-muted mb-0">Welcome back, Admin! Here's you can backup and restore your data.</p>
+                <p class="text-muted mb-0">Here You can download and Backup your data.</p>
             </div>
             <div>
             </div>
         </div>
-
         <!-- Recent Backups -->
         <div class="row">
             <div class="col-12">
@@ -44,7 +43,8 @@
                                         <td>
                                             <button class="btn btn-sm btn-primary me-1">
                                                 <i class="fa fa-download"></i>
-                                                <button class="btn btn-sm btn-danger"></button>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </td>

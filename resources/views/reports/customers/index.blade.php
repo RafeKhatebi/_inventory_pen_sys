@@ -15,10 +15,10 @@
         </div>
         <div class="d-flex justify-items-center align-items-center mb-4">
             <label for="search" class="form-control">Search</label>
-            <label for="text">Start Date: </label>
-            <input type="search" class="form-control">
-            <label for="text">End Date: </label>
-            <input type="search" class="form-control">
+            <label for="text" class="form-control">Start Date: </label>
+            <input type="date" class="form-control">
+            <label for="text" class="form-control">End Date: </label>
+            <input type="date" class="form-control">
         </div>
         <!-- Stats Cards -->
         <div class="row g-4 mb-4">
