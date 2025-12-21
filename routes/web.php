@@ -84,7 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/index', function () {
         return view('users.index');
     })->name('users.index');
-    
+
     // Profile -> User Profile
     Route::get('/users/profile/index', function () {
         return view('users.profile.index');
