@@ -5,9 +5,10 @@
 @section('content')
     <div class="container-fluid">
         <!-- Page Header -->
-        <div class="d-flex justify-content-between align-items-center mb-1">
+        <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h3 class="mb-1">Stock in Product</h3>
+                <h3 class="mb-1">Add New Product</h3>
+                <p class="text-muted mb-0">Create a new product in the inventory</p>
             </div>
             <div>
                 <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">
@@ -21,87 +22,24 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="fa fa-check-circle me-2"></i>{{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        @endif
+                        
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="fa fa-exclamation-circle me-2"></i>{{ session('error') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        @endif
+
                         <form action="{{ route('products.store') }}" method="POST">
                             @csrf
 
-                            <!-- Basic Information -->
-                            <div class="mb-1">
-                                <h5 class="mb-3 border-bottom pb-2">
-                                    <i class="fa fa-info-circle me-2 text-primary"></i>Basic Information
-                                </h5>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="product_name" class="form-label">Product Name *</label>
-                                        <input type="text" class="form-control" id="product_name" name="product_name"
-                                            required>
-                                    </div>
-
-                                    <div class="col-md-6 mb-2">
-                                        <label for="type" class="form-label">Product Type *</label>
-                                        <input type="text" class="form-control" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="package_type" class="form-label">Package Type *</label>
-                                        <input type="text" class="form-control" required>
-                                    </div>
-
-                                    <div class="col-md-6 mb-2">
-                                        <label for="weight" class="form-label">Weight (kg)</label>
-                                        <div class="input-group">
-                                            <input type="number" step="0.01" class="form-control" id="weight" name="weight">
-                                            <span class="input-group-text">kg</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Pricing Information -->
-                            <div class="mb-1">
-                                <h5 class="mb-3 border-bottom pb-2">
-                                    <i class="fa fa-dollar-sign me-2 text-primary"></i>Pricing Information
-                                </h5>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="price_per_unit" class="form-label">Price Per Unit *</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text">$</span>
-                                            <input type="number" step="0.01" class="form-control" id="price_per_unit"
-                                                name="price_per_unit" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-2">
-                                        <label for="price_per_carton" class="form-label">Price Per Carton</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text">$</span>
-                                            <input type="number" step="0.01" class="form-control" id="price_per_carton"
-                                                name="price_per_carton">
-                                        </div>
-                                        <small class="text-muted">Leave empty if not applicable</small>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="units_per_carton" class="form-label">Units Per Carton</label>
-                                        <input type="number" class="form-control" id="units_per_carton"
-                                            name="units_per_carton">
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="status" class="form-label">Status *</label>
-                                        <select class="form-select" id="status" name="status" required>
-                                            <option value="active" selected>Active</option>
-                                            <option value="inactive">Inactive</option>
-                                            <option value="discontinued">Discontinued</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
+                            @include('products.partials.form')
 
                             <!-- Form Actions -->
                             <div class="d-flex justify-content-end gap-2">

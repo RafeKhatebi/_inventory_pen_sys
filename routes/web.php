@@ -25,26 +25,33 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     // Products
-    Route::get('/products', function () {
-        return view('products.index');
-    })->name('products.index');
-
-    Route::get('/products/create', function () {
-        return view('products.create');
-    })->name('products.create');
+    Route::get('/products', function () { return view('products.index'); })->name('products.index');
+    Route::get('/products/create', function () { return view('products.create'); })->name('products.create');
+    Route::get('/products/{id}', function ($id) { return view('products.show'); })->name('products.show');
+    Route::get('/products/{id}/edit', function ($id) { return view('products.edit'); })->name('products.edit');
+    Route::post('/products', function () { return redirect()->route('products.index'); })->name('products.store');
+    Route::put('/products/{id}', function ($id) { return redirect()->route('products.index'); })->name('products.update');
+    Route::delete('/products/{id}', function ($id) { return redirect()->route('products.index'); })->name('products.destroy');
 
     // Customers
-    Route::get('/customers', function () {
-        return view('customers.index');
-    })->name('customers.index');
+    Route::get('/customers', function () { return view('customers.index'); })->name('customers.index');
+    Route::get('/customers/create', function () { return view('customers.create'); })->name('customers.create');
+    Route::get('/customers/{id}', function ($id) { return view('customers.show'); })->name('customers.show');
+    Route::get('/customers/{id}/edit', function ($id) { return view('customers.edit'); })->name('customers.edit');
+    Route::post('/customers', function () { return redirect()->route('customers.index'); })->name('customers.store');
+    Route::put('/customers/{id}', function ($id) { return redirect()->route('customers.index'); })->name('customers.update');
+    Route::delete('/customers/{id}', function ($id) { return redirect()->route('customers.index'); })->name('customers.destroy');
+    Route::get('/customers/transactions', function () { return view('customers.transactions.index'); })->name('customers.transactions');
 
-    Route::get('/customers/create', function () {
-        return view('customers.create');
-    })->name('customers.create');
+    // Users
+    Route::get('/users', function () { return view('users.index'); })->name('users.index');
+    Route::get('/users/create', function () { return view('users.create'); })->name('users.create');
+    Route::get('/users/{id}', function ($id) { return view('users.show'); })->name('users.show');
+    Route::get('/users/{id}/edit', function ($id) { return view('users.edit'); })->name('users.edit');
+    Route::post('/users', function () { return redirect()->route('users.index'); })->name('users.store');
+    Route::put('/users/{id}', function ($id) { return redirect()->route('users.index'); })->name('users.update');
+    Route::delete('/users/{id}', function ($id) { return redirect()->route('users.index'); })->name('users.destroy');
 
-    Route::get('/customers/transactions', function () {
-        return view('customers.transactions');
-    })->name('customers.transactions');
     // Stocks / Inventory
     Route::get('/stocks', function () {
         return view('stocks.index');
@@ -71,19 +78,9 @@ Route::middleware('auth')->group(function () {
         return view('reports.customers.index');
     })->name('reports.customers.index');
 
-
     Route::get('/reports/complete-summary', function () {
         return view('reports.complete-summary.index');
     })->name('reports.complete-summary.index');
-
-    //Users 
-    Route::get('/users/create', function () {
-        return view('users.create');
-    })->name('users.create');
-
-    Route::get('/users/index', function () {
-        return view('users.index');
-    })->name('users.index');
 
     // Profile -> User Profile
     Route::get('/users/profile/index', function () {
