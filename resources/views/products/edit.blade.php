@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+{{-- i want to use dynamic data in each file --}}
 @section('title', 'Edit Product')
 
 @section('content')
@@ -22,7 +22,7 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('products.update', 1) }}" method="POST">
+                        <form action="{{ route('products.update', $product) }}" method="POST">
                             @csrf
                             @method('PUT')
 

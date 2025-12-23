@@ -74,8 +74,8 @@
                                         <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" 
-                                                    onclick="return confirm('Are you sure you want to delete this product?')">
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Are you sure you want to delete this product?')">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </form>
@@ -86,7 +86,8 @@
                                     <td colspan="8" class="text-center py-4">
                                         <div class="text-muted">
                                             <i class="fa fa-box fa-3x mb-3"></i>
-                                            <p>No products found. <a href="{{ route('products.create') }}">Create your first product</a></p>
+                                            <p>No products found. <a href="{{ route('products.create') }}">Create your first
+                                                    product</a></p>
                                         </div>
                                     </td>
                                 </tr>
@@ -94,7 +95,7 @@
                         </tbody>
                     </table>
                 </div>
-                
+
                 <!-- Pagination -->
                 @if($products->hasPages())
                     <div class="d-flex justify-content-center mt-3">

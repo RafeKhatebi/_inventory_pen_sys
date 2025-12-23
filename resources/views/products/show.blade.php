@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+{{-- i want to use dynamic data in each file --}}
 @section('title', 'Product Details')
 
 @section('content')
@@ -11,7 +11,7 @@
                 <p class="text-muted mb-0">View product information</p>
             </div>
             <div>
-                <a href="{{ route('products.edit', 1) }}" class="btn btn-warning me-2">
+                <a href="{{ route('products.edit', $product) }}" class="btn btn-warning me-2">
                     <i class="fa fa-edit me-1"></i> Edit
                 </a>
                 <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">
@@ -30,32 +30,32 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label text-muted">Product Name</label>
-                                <p class="fw-bold">Sample Product</p>
+                                <label class="form-label text-muted">{{('Product Name') }}</label>
+                                <p class="fw-bold">{{ $product->name }}</p>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label text-muted">Product Type</label>
-                                <p class="fw-bold">Electronics</p>
+                                <p class="fw-bold">{{ $product->type }}</p>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label text-muted">Package Type</label>
-                                <p class="fw-bold">Box</p>
+                                <p class="fw-bold">{{ $product->package_type }}</p>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label text-muted">Weight</label>
-                                <p class="fw-bold">2.50 kg</p>
+                                <p class="fw-bold">{{ $product->weight }} kg</p>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label text-muted">Price Per Unit</label>
-                                <p class="fw-bold text-success">$25.99</p>
+                                <p class="fw-bold text-success">${{ number_format($product->price_per_unit, 2) }}</p>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label text-muted">Price Per Carton</label>
-                                <p class="fw-bold text-success">$299.99</p>
+                                <p class="fw-bold text-success">${{ number_format($product->price_per_carton, 2) }}</p>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label text-muted">Quantity Per Carton</label>
-                                <p class="fw-bold">12 units</p>
+                                <p class="fw-bold">{{ $product->quantity_per_carton }} units</p>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label text-muted">Created Date</label>
@@ -89,7 +89,7 @@
                 </div>
 
                 <!-- Recent Stock Movements -->
-                <div class="card mt-3">
+                {{-- <div class="card mt-3">
                     <div class="card-header">
                         <h6 class="mb-0">Recent Movements</h6>
                     </div>
@@ -111,7 +111,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
