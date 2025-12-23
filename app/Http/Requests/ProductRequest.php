@@ -24,7 +24,7 @@ class ProductRequest extends FormRequest
         ];
 
         if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
-            $rules['name'] = 'required|string|max:255|unique:products,name,' . $this->route('product');
+            $rules['name'] = 'required|string|max:255|unique:products,name,' . $this->route('product')->id;
         } else {
             $rules['name'] = 'required|string|max:255|unique:products,name';
         }
