@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -57,6 +58,8 @@ class ProductController extends Controller
     public function store(ProductRequest $request): JsonResponse
     {
         $product = Product::create($request->validated());
+        
+        ActivityLog::log('product_created', Product::class, $product->id, "Product '{$product->name}' created");
 
         return response()->json([
             'message' => 'Product created successfully',
