@@ -55,7 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         // Activity Logs
         Route::apiResource('activity-logs', ActivityLogController::class)->only(['index', 'store']);
-        
+
         // Backup Management
         Route::post('backup/create', [BackupController::class, 'createBackup']);
         Route::get('backup/list', [BackupController::class, 'listBackups']);
