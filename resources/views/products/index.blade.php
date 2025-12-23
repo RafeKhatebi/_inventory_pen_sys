@@ -10,13 +10,21 @@
                 <h3 class="mb-1">Products Management</h3>
                 <p class="text-muted mb-0">View and manage your products</p>
             </div>
-            <div>
-                {{-- Search Input to search products base on names id Package
-                to use dynamic search you need to implement javascript or backend logic
-                --}}
-                <input type="search" class="form-control searchProducts" placeholder="Search products...">
-            </div>
-            <div>
+            <div class="d-flex gap-2">
+                <!-- Search Form -->
+                <form method="GET" action="{{ route('products.index') }}" class="d-flex">
+                    <input type="search" name="search" class="form-control" 
+                           placeholder="Search products..." 
+                           value="{{ request('search') }}">
+                    <button type="submit" class="btn btn-outline-primary ms-2">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    @if(request('search'))
+                        <a href="{{ route('products.index') }}" class="btn btn-outline-secondary ms-1">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    @endif
+                </form>
                 <a href="{{ route('products.create') }}" class="btn btn-primary">
                     <i class="fa fa-plus me-1"></i> Add Product
                 </a>
@@ -35,6 +43,15 @@
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <i class="fa fa-exclamation-circle me-2"></i>{{ session('error') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
+        <!-- Search Results Info -->
+        @if(request('search'))
+            <div class="alert alert-info">
+                <i class="fa fa-search me-2"></i>
+                Search results for: <strong>"{{ request('search') }}"</strong>
+                ({{ $products->total() }} {{ $products->total() == 1 ? 'result' : 'results' }} found)
             </div>
         @endif
 

@@ -10,9 +10,27 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(15);
+        $query = Product::query();
+
+        // Search functionality
+        if ($request->has('search') && !empty($request->get('search'))) {
+            $search = $request->get('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('type', 'LIKE', "%{$search}%")
+                    ->orWhere('package_type', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $products = $query->paginate(15);
+        
+        // Preserve search parameter in pagination links
+        if ($request->has('search')) {
+            $products->appends(['search' => $request->get('search')]);
+        }
+        
         return view('products.index', compact('products'));
     }
 

@@ -58,7 +58,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request): JsonResponse
     {
         $product = Product::create($request->validated());
-        
+
         ActivityLog::log('product_created', Product::class, $product->id, "Product '{$product->name}' created");
 
         return response()->json([
