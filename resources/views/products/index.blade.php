@@ -11,6 +11,12 @@
                 <p class="text-muted mb-0">View and manage your products</p>
             </div>
             <div>
+                {{-- Search Input to search products base on names id Package
+                to use dynamic search you need to implement javascript or backend logic
+                --}}
+                <input type="search" class="form-control searchProducts" placeholder="Search products...">
+            </div>
+            <div>
                 <a href="{{ route('products.create') }}" class="btn btn-primary">
                     <i class="fa fa-plus me-1"></i> Add Product
                 </a>

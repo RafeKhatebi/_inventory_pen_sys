@@ -74,7 +74,7 @@
                     </div>
                     <div class="card-body">
                         <div class="text-center mb-3">
-                            <h2 class="text-primary">150</h2>
+                            <h2 class="text-primary">{{ $product->stock }}</h2>
                             <p class="text-muted">Current Stock</p>
                         </div>
                         <div class="d-grid gap-2">
@@ -87,31 +87,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Recent Stock Movements -->
-                {{-- <div class="card mt-3">
-                    <div class="card-header">
-                        <h6 class="mb-0">Recent Movements</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="list-group list-group-flush">
-                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <div>
-                                    <small class="text-muted">Stock In</small>
-                                    <div>+50 units</div>
-                                </div>
-                                <small class="text-muted">Today</small>
-                            </div>
-                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <div>
-                                    <small class="text-muted">Stock Out</small>
-                                    <div>-25 units</div>
-                                </div>
-                                <small class="text-muted">Yesterday</small>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>
