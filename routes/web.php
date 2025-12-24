@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\StockController;
 
 // Redirect root to login
 Route::get('/', function () {
@@ -26,6 +27,14 @@ Route::middleware('auth')->group(function () {
 
     // Products
     Route::resource('products', \App\Http\Controllers\ProductController::class);
+
+    // Stocks / Inventory
+    Route::get('/stocks', [StockController::class, 'index'])->name('stocks.index');
+    Route::get('/stocks/create', [StockController::class, 'create'])->name('stocks.create');
+    Route::post('/stocks', [StockController::class, 'store'])->name('stocks.store');
+    Route::get('/stocks/in', [StockController::class, 'stockIn'])->name('stocks.in');
+    Route::get('/stocks/out', [StockController::class, 'stockOut'])->name('stocks.out');
+    Route::get('/stocks/history', [StockController::class, 'history'])->name('stocks.history');
 
     // Customers
     Route::get('/customers', function () {
@@ -76,28 +85,9 @@ Route::middleware('auth')->group(function () {
         return redirect()->route('users.index');
     })->name('users.destroy');
 
-    // Stocks / Inventory
-    Route::get('/stocks', function () {
-        return view('stocks.index');
-    })->name('stocks.index');
 
-    Route::get('/stocks/in', function () {
-        return view('stocks.in');
-    })->name('stocks.in.create');
-
-    Route::get('/stocks/out', function () {
-        return view('stocks.out');
-    })->name('stocks.out.create');
-
-    Route::get('/stocks/history', function () {
-        return view('stocks.history');
-    })->name('stocks.history');
 
     // Reports
-    Route::get('/reports/inventory', function () {
-        return view('reports.inventory.index');
-    })->name('reports.inventory.index');
-
     Route::get('/reports/customers', function () {
         return view('reports.customers.index');
     })->name('reports.customers.index');

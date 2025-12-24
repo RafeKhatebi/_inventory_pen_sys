@@ -1,109 +1,83 @@
 @extends('layouts.app')
 
-@section('title', 'Stock in Product')
+@section('title', 'Stock In')
+
+@push('styles')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+.select2-container--default .select2-selection--single {
+    height: 38px;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 36px;
+    padding-left: 12px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 36px;
+}
+</style>
+@endpush
 
 @section('content')
     <div class="container-fluid">
-        <!-- Page Header -->
-        <div class="d-flex justify-content-between align-items-center mb-1">
+        <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h3 class="mb-1">Stock in Product</h3>
+                <h3 class="mb-1">Stock In</h3>
+                <p class="text-muted mb-0">Add stock to inventory</p>
             </div>
             <div>
-                <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">
-                    <i class="fa fa-arrow-left me-1"></i> Back to Products
+                <a href="{{ route('stocks.index') }}" class="btn btn-outline-secondary">
+                    <i class="fa fa-arrow-left me-1"></i> Back to Stock
                 </a>
             </div>
         </div>
 
-        <!-- Product Form -->
         <div class="row">
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('products.store') }}" method="POST">
+                        <form action="{{ route('stocks.store') }}" method="POST">
                             @csrf
+                            <input type="hidden" name="type" value="in">
 
-                            <!-- Basic Information -->
-                            <div class="mb-1">
-                                <h5 class="mb-3 border-bottom pb-2">
-                                    <i class="fa fa-info-circle me-2 text-primary"></i>Basic Information
-                                </h5>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="product_name" class="form-label">Product Id</label>
-                                        <input type="text" class="form-control" id="product_name" name="product_name"
-                                            required>
-                                    </div>
-
-                                    <div class="col-md-6 mb-2">
-                                        <label for="type" class="form-label">Product Name *</label>
-                                        <input type="text" class="form-control" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="package_type" class="form-label">Product Type *</label>
-                                        <input type="text" class="form-control" required>
-                                    </div>
-
-                                    <div class="col-md-6 mb-2">
-                                        <label for="type" class="form-label">package_type*</label>
-                                        <input type="text" class="form-control" required>
-                                    </div>
-                                </div>
+                            <div class="mb-3">
+                                <label for="product_id" class="form-label">Product *</label>
+                                <select name="product_id" id="product_id" class="form-control select2" required>
+                                    <option value="">Search and Select Product...</option>
+                                    @foreach ($products as $product)
+                                        <option value="{{ $product->id }}" {{ request('product') == $product->id ? 'selected' : '' }}>
+                                            {{ $product->name }} - {{ $product->type }} ({{ $product->package_type }})
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('product_id')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                    <label for="quantity" class="form-label">Quantity *</label>
+                                    <input type="number" name="quantity" id="quantity" class="form-control" min="1" required value="{{ old('quantity') }}">
+                                    @error('quantity')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                
+                            </div>
+                            <div class="mb-3">
+                                <label for="note" class="form-label">Note</label>
+                                <textarea name="note" id="note" class="form-control" rows="3" placeholder="Optional note about this stock transaction">{{ old('note') }}</textarea>
+                                @error('note')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
-                            <!-- Pricing Information -->
-                            <div class="mb-1">
-                                <h5 class="mb-3 border-bottom pb-2">
-                                    <i class="fa fa-dollar-sign me-2 text-primary"></i>Pricing Information
-                                </h5>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="price_per_unit" class="form-label">Price Per Unit *</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text">$</span>
-                                            <input type="number" step="0.01" class="form-control" id="price_per_unit"
-                                                name="price_per_unit" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-2">
-                                        <label for="price_per_carton" class="form-label">Price Per Carton</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text">$</span>
-                                            <input type="number" step="0.01" class="form-control" id="price_per_carton"
-                                                name="price_per_carton">
-                                        </div>
-                                        <small class="text-muted">Leave empty if not applicable</small>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="units_per_carton" class="form-label">Units Per Carton</label>
-                                        <input type="number" class="form-control" id="units_per_carton"
-                                            name="units_per_carton">
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="units_per_carton" class="form-label">Total</label>
-                                        <input type="number" class="form-control" id="units_per_carton"
-                                            name="units_per_carton">
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <!-- Form Actions -->
                             <div class="d-flex justify-content-end gap-2">
                                 <button type="reset" class="btn btn-outline-secondary">
                                     <i class="fa fa-redo me-1"></i> Reset
                                 </button>
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-save me-1"></i> Save Product
+                                    <i class="fa fa-plus me-1"></i> Add Stock
                                 </button>
                             </div>
                         </form>
@@ -112,4 +86,17 @@
             </div>
         </div>
     </div>
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.select2').select2({
+        placeholder: 'Search and select a product...',
+        allowClear: true,
+        width: '100%'
+    });
+});
+</script>
+@endpush
 @endsection

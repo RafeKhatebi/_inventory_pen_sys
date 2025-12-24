@@ -14,15 +14,17 @@ class ReportController extends Controller
 {
     public function customerCreditReport(Request $request): JsonResponse
     {
-        $query = Customer::with(['credits' => function($q) {
-            $q->orderBy('created_at', 'desc');
-        }]);
+        $query = Customer::with([
+            'credits' => function ($q) {
+                $q->orderBy('created_at', 'desc');
+            }
+        ]);
 
         if ($request->has('customer_id')) {
             $query->where('id', $request->customer_id);
         }
 
-        $customers = $query->get()->map(function($customer) {
+        $customers = $query->get()->map(function ($customer) {
             return [
                 'id' => $customer->id,
                 'name' => $customer->name,
@@ -71,14 +73,16 @@ class ReportController extends Controller
 
     public function lowStockAlert(): JsonResponse
     {
-        $lowStockProducts = Product::whereHas('stock', function($query) {
+        $lowStockProducts = Product::whereHas('stock', function ($query) {
             $query->selectRaw('product_id, SUM(CASE WHEN type = "in" THEN quantity ELSE -quantity END) as current_stock')
-                  ->groupBy('product_id')
-                  ->havingRaw('current_stock <= 10');
-        })->with(['stock' => function($query) {
-            $query->selectRaw('product_id, SUM(CASE WHEN type = "in" THEN quantity ELSE -quantity END) as current_stock')
-                  ->groupBy('product_id');
-        }])->get();
+                ->groupBy('product_id')
+                ->havingRaw('current_stock <= 10');
+        })->with([
+                    'stock' => function ($query) {
+                        $query->selectRaw('product_id, SUM(CASE WHEN type = "in" THEN quantity ELSE -quantity END) as current_stock')
+                            ->groupBy('product_id');
+                    }
+                ])->get();
 
         return response()->json([
             'low_stock_products' => $lowStockProducts,
@@ -89,7 +93,7 @@ class ReportController extends Controller
     public function exportData(Request $request): JsonResponse
     {
         $type = $request->get('type', 'products');
-        
+
         switch ($type) {
             case 'products':
                 $data = Product::all();

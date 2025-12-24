@@ -11,10 +11,12 @@ class WarehouseController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with(['stock' => function($q) {
-            $q->selectRaw('product_id, SUM(CASE WHEN type = "in" THEN quantity ELSE -quantity END) as current_stock')
-              ->groupBy('product_id');
-        }]);
+        $query = Product::with([
+            'stock' => function ($q) {
+                $q->selectRaw('product_id, SUM(CASE WHEN type = "in" THEN quantity ELSE -quantity END) as current_stock')
+                    ->groupBy('product_id');
+            }
+        ]);
 
         if ($request->has('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
@@ -31,10 +33,12 @@ class WarehouseController extends Controller
 
     public function show($id)
     {
-        $product = Product::with(['stock' => function($q) {
-            $q->selectRaw('product_id, SUM(CASE WHEN type = "in" THEN quantity ELSE -quantity END) as current_stock')
-              ->groupBy('product_id');
-        }])->findOrFail($id);
+        $product = Product::with([
+            'stock' => function ($q) {
+                $q->selectRaw('product_id, SUM(CASE WHEN type = "in" THEN quantity ELSE -quantity END) as current_stock')
+                    ->groupBy('product_id');
+            }
+        ])->findOrFail($id);
 
         return response()->json($product);
     }

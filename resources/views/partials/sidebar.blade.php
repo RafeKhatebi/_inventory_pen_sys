@@ -77,12 +77,12 @@
                             class="dropdown-item {{ request()->routeIs('stocks.index') ? 'active' : '' }}">
                             <i class="fa fa-boxes me-2"></i>Stock Overview
                         </a>
-                        <a href="{{ route('stocks.in.create') }}"
-                            class="dropdown-item {{ request()->routeIs('stocks.in.*') ? 'active' : '' }}">
+                        <a href="{{ route('stocks.in') }}"
+                            class="dropdown-item {{ request()->routeIs('stocks.in') ? 'active' : '' }}">
                             <i class="fa fa-arrow-down me-2"></i>Stock In
                         </a>
-                        <a href="{{ route('stocks.out.create') }}"
-                            class="dropdown-item {{ request()->routeIs('stocks.out.*') ? 'active' : '' }}">
+                        <a href="{{ route('stocks.out') }}"
+                            class="dropdown-item {{ request()->routeIs('stocks.out') ? 'active' : '' }}">
                             <i class="fa fa-arrow-up me-2"></i>Stock Out
                         </a>
                         <a href="{{ route('stocks.history') }}"
@@ -99,10 +99,6 @@
                         <i class="fa fa-chart-bar me-2"></i>Reports
                     </a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a href="{{ route('reports.inventory.index') }}"
-                            class="dropdown-item {{ request()->routeIs('reports.inventory') ? 'active' : '' }}">
-                            <i class="fa fa-boxes me-2"></i>Inventory Report
-                        </a>
                         <a href="{{ route('reports.customers.index') }}"
                             class="dropdown-item {{ request()->routeIs('reports.customers.index') ? 'active' : '' }}">
                             <i class="fa fa-users me-2"></i>Customer Report
