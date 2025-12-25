@@ -11,17 +11,15 @@ class Customer extends Model
         'name',
         'phone',
         'address',
-        'total_credit'
+        'credit_limit'
     ];
-    // relation with credits
-    public function credits()
+
+
+    // relation with transactions
+
+    public function transactions()
     {
-        return $this->hasMany(Credit::class);
+        return $this->hasMany(Transaction::class);
     }
 
-    public function totalCredit()
-    {
-        return $this->credits()->where('type', 'sale')->sum('amount') -
-            $this->credits()->where('type', 'payment')->sum('amount');
-    }
 }

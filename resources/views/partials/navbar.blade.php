@@ -11,29 +11,6 @@
     <div class="navbar-nav align-items-center ms-auto">
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <i class="fa fa-bell me-lg-2"></i>
-                <span class="d-none d-lg-inline-flex">Notifications</span>
-                <span class="badge bg-primary rounded-pill">5</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                <a href="/stocks" class="dropdown-item">
-                    <h6 class="fw-normal mb-0">⚠️ 3 products low in stock</h6>
-                    <small>Just now</small>
-                </a>
-                <a href="/customers" class="dropdown-item">
-                    <h6 class="fw-normal mb-0">👥 New customer registered</h6>
-                    <small>15 minutes ago</small>
-                </a>
-                <a href="#" class="dropdown-item">
-                    <h6 class="fw-normal mb-0">💰 Credit payment overdue</h6>
-                    <small>2 hours ago</small>
-                </a>
-                <hr class="dropdown-divider">
-                <a href="#" class="dropdown-item text-center">See all notifications</a>
-            </div>
-        </div>
-        <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <img class="rounded-circle me-lg-2"
                     src="https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff" alt="Admin"
                     style="width: 40px; height: 40px;">

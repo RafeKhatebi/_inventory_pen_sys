@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 use App\Models\Customer;
 
 // Redirect root to login
@@ -42,15 +43,25 @@ Route::middleware('auth')->group(function () {
 
     // Customers
     Route::resource('customers', CustomerController::class);
-    // Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
-    // Route::get('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
-    // Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('customers.show');
-    // Route::get('/customers/{customer}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
-    // Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
-    // Route::put('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update');
-    // Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
-    // Route::get('/customers/transactions', [CustomerController::class, 'transactions']);
-})->name('customers.transactions');
+
+    // Transactions
+
+
+    Route::get('transactions', [TransactionController::class, 'index'])
+        ->name('transactions.index');
+
+    Route::get('transactions/create', [TransactionController::class, 'create'])
+        ->name('transactions.create');
+    Route::get('transactions/{id}', [TransactionController::class, 'show'])
+        ->name('transactions.show');
+
+    Route::get('transactions/{id}/print', [TransactionController::class, 'print'])
+        ->name('transactions.print');
+    Route::post('transactions', [TransactionController::class, 'store'])
+        ->name('transactions.store');
+
+
+});
 
 // Users
 Route::get('/users', function () {
@@ -91,15 +102,10 @@ Route::get('/users/profile/index', function () {
     return view('users.profile.index');
 })->name('users.profile.index');
 
-// Settings
-Route::get('/settings/settings', function () {
-    return view('settings.settings.index');
-})->name('settings.settings.index');
-
-Route::get('/settings/backup', function () {
-    return view('settings.backup.index');
-})->name('settings.backup.index');
-
+// Backup & Restore
+Route::get('/backup', function () {
+    return view('backup.index');
+})->name('backup.index');
 
 // Home redirect to dashboard
 Route::redirect('/home', '/dashboard');

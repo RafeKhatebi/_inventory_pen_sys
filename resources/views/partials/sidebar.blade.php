@@ -44,28 +44,6 @@
                         </a>
                     </div>
                 </div>
-                <!-- Customers -->
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('customers.*') ? 'active' : '' }}"
-                        data-bs-toggle="dropdown">
-                        <i class="fa fa-users me-2"></i>Customers
-                    </a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="{{ route('customers.index') }}"
-                            class="dropdown-item {{ request()->routeIs('customers.index') ? 'active' : '' }}">
-                            <i class="fa fa-list me-2"></i>All Customers
-                        </a>
-                        <a href="{{ route('customers.create') }}"
-                            class="dropdown-item {{ request()->routeIs('customers.create') ? 'active' : '' }}">
-                            <i class="fa fa-user-plus me-2"></i>Add Customer
-                        </a>
-                        {{-- <a href="{{ route('customers.transactions') }}"
-                            class="dropdown-item {{ request()->routeIs('customers.transactions') ? 'active' : '' }}">
-                            <i class="fa fa-exchange-alt me-2"></i>Transactions
-                        </a> --}}
-                    </div>
-                </div>
-
                 <!-- Inventory -->
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('stocks.*') ? 'active' : '' }}"
@@ -88,6 +66,40 @@
                         <a href="{{ route('stocks.history') }}"
                             class="dropdown-item {{ request()->routeIs('stocks.history') ? 'active' : '' }}">
                             <i class="fa fa-history me-2"></i>Stock History
+                        </a>
+                    </div>
+                </div>
+                <!-- Customers -->
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('customers.*') ? 'active' : '' }}"
+                        data-bs-toggle="dropdown">
+                        <i class="fa fa-users me-2"></i>Customers
+                    </a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="{{ route('customers.index') }}"
+                            class="dropdown-item {{ request()->routeIs('customers.index') ? 'active' : '' }}">
+                            <i class="fa fa-list me-2"></i>All Customers
+                        </a>
+                        <a href="{{ route('customers.create') }}"
+                            class="dropdown-item {{ request()->routeIs('customers.create') ? 'active' : '' }}">
+                            <i class="fa fa-user-plus me-2"></i>Add Customer
+                        </a>
+                    </div>
+                </div> <!--Transactions -->
+                <div class="nav-item dropdown">
+                    <a href="#"
+                        class="nav-link dropdown-toggle {{ request()->routeIs('transactions.*') ? 'active' : '' }}"
+                        data-bs-toggle="dropdown">
+                        <i class="fa fa-users me-2"></i>Transactions
+                    </a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="{{ route('transactions.index') }}"
+                            class="dropdown-item {{ request()->routeIs('transactions.index') ? 'active' : '' }}">
+                            <i class="fa fa-exchange-alt me-2"></i>Transactions
+                        </a>
+                        <a href="{{ route('transactions.create') }}"
+                            class="dropdown-item {{ request()->routeIs('transactions.create') ? 'active' : '' }}">
+                            <i class="fa fa-plus-circle me-2"></i>Add Transaction
                         </a>
                     </div>
                 </div>
@@ -128,23 +140,16 @@
                     </div>
                 </div>
 
-                <!-- Settings -->
+                <!-- Backup & Restore -->
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('settings.*') ? 'active' : '' }}"
+                    <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('backup.*') ? 'active' : '' }}"
                         data-bs-toggle="dropdown">
-                        <i class="fa fa-cog me-2"></i>Settings
+                        <i class="fa fa-cog me-2"></i>Backup
                     </a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a href="{{ route('settings.settings.index') }}"
-                            class="dropdown-item {{ request()->routeIs('settings.settings.index') ? 'active' : '' }}">
-                            <i class="fa fa-cogs me-2"></i>General Settings
-                        </a>
-                        {{-- <a href="{{ route('settings.users.index') }}"
-                            class="dropdown-item {{ request()->routeIs('settings.users.index') ? 'active' : '' }}">
-                            <i class="fa fa-user-cog me-2"></i>User Management
-                        </a> --}}
-                        <a href="{{ route('settings.backup.index') }}"
-                            class="dropdown-item {{ request()->routeIs('settings.backup.index') ? 'active' : '' }}">
+
+                        <a href="{{ route('backup.index') }}"
+                            class="dropdown-item {{ request()->routeIs('backup.index') ? 'active' : '' }}">
                             <i class="fa fa-database me-2"></i>Backup & Restore
                         </a>
                     </div>

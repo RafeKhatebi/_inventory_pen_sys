@@ -10,16 +10,16 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('credits', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('customer_id');
+            $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
+            $table->enum('type', ['take', 'give']);
             $table->decimal('amount', 10, 2);
-            $table->string('description')->nullable();
-            $table->boolean('is_paid')->default(false);
-            $table->date('credit_date');
+            $table->date('transaction_date');
+            $table->string('note')->nullable();
             $table->timestamps();
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });
+
     }
 
     /**
@@ -27,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('credits');
+        Schema::dropIfExists('transactions');
     }
 };
