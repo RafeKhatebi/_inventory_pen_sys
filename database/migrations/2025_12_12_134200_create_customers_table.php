@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('phone')->unique();
             $table->string('address');
-            $table->decimal('total_credit', 10, 2)->default(0);
+            $table->decimal('credit_limit', 15, 2)->default(0);
             $table->string('note')->nullable();
             $table->timestamps();
         });

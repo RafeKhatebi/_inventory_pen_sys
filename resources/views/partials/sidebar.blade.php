@@ -111,13 +111,8 @@
                         <i class="fa fa-chart-bar me-2"></i>Reports
                     </a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a href="{{ route('reports.customers.index') }}"
-                            class="dropdown-item {{ request()->routeIs('reports.customers.index') ? 'active' : '' }}">
-                            <i class="fa fa-users me-2"></i>Customer Report
-                        </a>
-
-                        <a href="{{ route('reports.complete-summary.index') }}"
-                            class="dropdown-item {{ request()->routeIs('reports.complete-summary.index') ? 'active' : '' }}">
+                        <a href="{{ route('reports.index') }}"
+                            class="dropdown-item {{ request()->routeIs('reports.index') ? 'active' : '' }}">
                             <i class="fa fa-calendar-day me-2"></i>Complete Summary
                         </a>
                     </div>

@@ -9,9 +9,20 @@
                 <h3 class="mb-1">Customers Management</h3>
                 <p class="text-muted mb-0">Manage your customers and credit accounts</p>
             </div>
+            {{-- Search from dynamic data --}}
             <div>
-                <span><strong>Search</strong></span>
-                <input type="text" class="form-control">
+                <form method="GET" action="{{ route('customers.index') }}" class="d-flex">
+                    <input type="search" name="search" class="form-control" placeholder="Search customers..."
+                        value="{{ request('search') }}">
+                    <button type="submit" class="btn btn-outline-primary ms-2">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    @if(request('search'))
+                        <a href="{{ route('customers.index') }}" class="btn btn-outline-secondary ms-1">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    @endif
+                </form>
             </div>
         </div>
         <div class="card">

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+{{-- updated to use dynamic data --}}
 @section('title', 'Dashboard')
 
 @section('content')
@@ -9,14 +9,6 @@
             <div>
                 <h3 class="mb-1">Dashboard Overview</h3>
                 <p class="text-muted mb-0">Welcome back, Admin! Here's what's happening today.</p>
-            </div>
-            <div>
-                <button class="btn btn-primary btn-sm me-2">
-                    <i class="fa fa-plus me-1"></i> Quick Sale
-                </button>
-                <button class="btn btn-outline-primary btn-sm">
-                    <i class="fa fa-download me-1"></i> Export
-                </button>
             </div>
         </div>
 
@@ -29,11 +21,8 @@
                             <i class="fa fa-rupee-sign fa-2x text-white"></i>
                         </div>
                         <div>
-                            <p class="mb-1">Today's Sales</p>
-                            <h4 class="mb-0">₹25,480</h4>
-                            <small class="text-success">
-                                <i class="fa fa-arrow-up me-1"></i> 12%
-                            </small>
+                            <p class="mb-1">Total Customers</p>
+                            <h4 class="mb-0">345</h4>
                         </div>
                     </div>
                 </div>
@@ -45,11 +34,8 @@
                             <i class="fa fa-chart-bar fa-2x text-white"></i>
                         </div>
                         <div>
-                            <p class="mb-1">Total Revenue</p>
-                            <h4 class="mb-0">₹1,25,480</h4>
-                            <small class="text-success">
-                                <i class="fa fa-arrow-up me-1"></i> 8%
-                            </small>
+                            <p class="mb-1">Total Products</p>
+                            <h4 class="mb-0">4343</h4>
                         </div>
                     </div>
                 </div>
@@ -61,11 +47,8 @@
                             <i class="fa fa-users fa-2x text-white"></i>
                         </div>
                         <div>
-                            <p class="mb-1">Total Customers</p>
-                            <h4 class="mb-0">245</h4>
-                            <small class="text-success">
-                                <i class="fa fa-user-plus me-1"></i> +5
-                            </small>
+                            <p class="mb-1">Total Money</p>
+                            <h4 class="mb-0">245323Af</h4>
                         </div>
                     </div>
                 </div>
@@ -73,113 +56,38 @@
             <div class="col-sm-6 col-xl-3">
                 <div class="bg-light rounded p-4">
                     <div class="d-flex align-items-center">
-                        <div class="rounded-circle bg-danger p-3 me-3">
+                        <div class="rounded-circle bg-info p-3 me-3">
                             <i class="fa fa-exclamation-triangle fa-2x text-white"></i>
                         </div>
                         <div>
-                            <p class="mb-1">Low Stock Items</p>
-                            <h4 class="mb-0">12</h4>
-                            <small class="text-danger">
-                                <i class="fa fa-arrow-down me-1"></i> Needs attention
-                            </small>
+                            <p class="mb-1"> Stock Items</p>
+                            <h4 class="mb-0">1232</h4>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Recent Transactions -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Recent Transactions</h5>
-                        <a href="/sales" class="btn btn-sm btn-outline-primary">View All</a>
+        <!-- Quick Actions -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-12">
+                <div class="bg-light rounded p-4">
+                    <h5 class="mb-3">Quick Actions</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="{{ route('products.index') }}" class="btn btn-primary">View Products</a>
+                        <a href="{{ route('customers.index') }}" class="btn btn-success">View Customers</a>
+                        <a href="{{ route('stocks.index') }}" class="btn btn-warning">View Stocks</a>
+                        <a href="{{ route('transactions.index') }}" class="btn btn-info">View Transactions</a>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Invoice No</th>
-                                        <th>Customer</th>
-                                        <th>Date</th>
-                                        <th>Amount</th>
-                                        <th>Payment</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>INV-001</td>
-                                        <td>John Doe</td>
-                                        <td>15 Jan 2024</td>
-                                        <td>₹5,250</td>
-                                        <td><span class="badge bg-success">Cash</span></td>
-                                        <td><span class="badge bg-success">Paid</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-primary">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>INV-002</td>
-                                        <td>Jane Smith</td>
-                                        <td>15 Jan 2024</td>
-                                        <td>₹3,800</td>
-                                        <td><span class="badge bg-warning">Credit</span></td>
-                                        <td><span class="badge bg-warning">Pending</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-primary">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>INV-003</td>
-                                        <td>Mike Johnson</td>
-                                        <td>14 Jan 2024</td>
-                                        <td>₹8,900</td>
-                                        <td><span class="badge bg-success">Cash</span></td>
-                                        <td><span class="badge bg-success">Paid</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-primary">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>INV-004</td>
-                                        <td>Sarah Williams</td>
-                                        <td>14 Jan 2024</td>
-                                        <td>₹2,450</td>
-                                        <td><span class="badge bg-info">Card</span></td>
-                                        <td><span class="badge bg-success">Paid</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-primary">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>INV-005</td>
-                                        <td>Robert Brown</td>
-                                        <td>13 Jan 2024</td>
-                                        <td>₹6,750</td>
-                                        <td><span class="badge bg-warning">Credit</span></td>
-                                        <td><span class="badge bg-danger">Overdue</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-primary">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                </div>
+            </div>
+        </div>
+        {{--Date and time --}}
+        <div class="row g-4 mb-4">
+            <div class="col-md-12">
+                <div class="bg-light rounded p-4">
+                    <h5 class="mb-3">Date and Time</h5>
+                    <p id="currentDateTime" class="mb-0">{{ now() }}</p>
                 </div>
             </div>
         </div>

@@ -60,6 +60,11 @@ Route::middleware('auth')->group(function () {
     Route::post('transactions', [TransactionController::class, 'store'])
         ->name('transactions.store');
 
+    // Reports
+    Route::get('/reports/index', function () {
+        return view('reports.index');
+    })->name('reports.index');
+
 
 });
 
@@ -88,14 +93,7 @@ Route::delete('/users/{id}', function ($id) {
 
 
 
-// Reports
-Route::get('/reports/customers', function () {
-    return view('reports.customers.index');
-})->name('reports.customers.index');
 
-Route::get('/reports/complete-summary', function () {
-    return view('reports.complete-summary.index');
-})->name('reports.complete-summary.index');
 
 // Profile -> User Profile
 Route::get('/users/profile/index', function () {
