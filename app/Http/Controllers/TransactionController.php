@@ -4,23 +4,65 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Transaction;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+    public function index(Request $request)
+    {
+        $query = Transaction::with('customer');
+        
+        if ($request->has('customer_id') && $request->customer_id) {
+            $query->where('customer_id', $request->customer_id);
+        }
+        
+        if ($request->has('type') && $request->type) {
+            $query->where('type', $request->type);
+        }
+        
+        $transactions = $query->latest()->paginate(15);
+        $customers = Customer::all();
+        
+        return view('transactions.index', compact('transactions', 'customers'));
+    }
+
     public function create()
     {
         $customers = Customer::all();
         return view('transactions.create', compact('customers'));
     }
-    public function index()
-    {
-        $transactions = Transaction::with('customer')
-            ->latest()
-            ->paginate(15);
 
-        return view('transactions.index', compact('transactions'));
+    public function store(Request $request)
+    {
+        $request->validate([
+            'customer_id' => 'required|exists:customers,id',
+            'type' => 'required|in:take,give',
+            'amount' => 'required|numeric|min:0.01',
+            'transaction_date' => 'required|date',
+            'note' => 'nullable|string|max:500',
+        ]);
+
+        $customer = Customer::find($request->customer_id);
+        
+        // Check credit limit for 'take' transactions
+        if ($request->type === 'take') {
+            if (!$customer->canTakeCredit($request->amount)) {
+                return back()->withInput()->with('error', 
+                    'Credit limit exceeded! Current credit: ' . number_format($customer->getCurrentCredit(), 2) . 
+                    ', Limit: ' . number_format($customer->credit_limit, 2));
+            }
+        }
+
+        $transaction = Transaction::create($request->all());
+
+        ActivityLog::log('transaction_created', Transaction::class, $transaction->id, 
+            "Transaction {$request->type}: {$request->amount} for customer: {$customer->name}");
+
+        return redirect()->route('transactions.index')
+            ->with('success', 'Transaction recorded successfully!');
     }
+
     public function show($id)
     {
         $transaction = Transaction::with('customer')->findOrFail($id);
@@ -31,21 +73,6 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::with('customer')->findOrFail($id);
         return view('transactions.print', compact('transaction'));
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'customer_id' => 'required|exists:customers,id',
-            'type' => 'required|in:take,give',
-            'amount' => 'required|numeric|min:0.01',
-            'transaction_date' => 'required|date',
-        ]);
-
-        Transaction::create($request->all());
-
-        return redirect()->route('transactions.index')
-            ->with('success', 'Transaction saved successfully');
     }
 }
 

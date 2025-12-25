@@ -40,9 +40,9 @@
                             <a href="{{ route('transactions.show', $transaction->id) }}" class="btn btn-view btn-sm">
                                 <i class="fas fa-eye"></i>
                                 View</a>
-                            <a href="{{ route('transactions.print', $transaction->id) }}" class="btn btn-print btn-sm">
+                            {{-- <a href="{{ route('transactions.print', $transaction->id) }}" class="btn btn-print btn-sm">
                                 <i class="fas fa-print"></i>
-                                Print</a>
+                                Print</a> --}}
                         </td>
                     </tr>
                 @empty

@@ -10,7 +10,6 @@ use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\WarehouseController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ReportController;
-use App\Http\Controllers\Api\ActivityLogController;
 
 /*
 |--------------------------------------------------------------------------

@@ -103,7 +103,6 @@
                         </a>
                     </div>
                 </div>
-
                 <!-- Reports -->
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('reports.*') ? 'active' : '' }}"
@@ -111,10 +110,19 @@
                         <i class="fa fa-chart-bar me-2"></i>Reports
                     </a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a href="{{ route('reports.index') }}"
-                            class="dropdown-item {{ request()->routeIs('reports.index') ? 'active' : '' }}">
-                            <i class="fa fa-calendar-day me-2"></i>Complete Summary
+                        <a href="{{ route('reports.inventory.index') }}"
+                            class="dropdown-item {{ request()->routeIs('reports.inventory.index') ? 'active' : '' }}">
+                            <i class="fa fa-warehouse me-2"></i>Inventory Report
                         </a>
+
+                        <a href="{{ route('reports.complete-summary.index') }}"
+                            class="dropdown-item {{ request()->routeIs('reports.complete-summary.index') ? 'active' : '' }}">
+                            <i class="fa fa-exchange-alt me-2"></i>Transaction Report
+                        </a>
+                        <a href="{{ route('reports.customers.index') }}"
+                            class="dropdown-item {{ request()->routeIs('reports.customers.index') ? 'active' : '' }}">
+                            <i class="fa fa-users me-2"></i>Customer Report</a>
+
                     </div>
                 </div>
                 {{-- Users --}}
@@ -134,7 +142,6 @@
                         </a>
                     </div>
                 </div>
-
                 <!-- Backup & Restore -->
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('backup.*') ? 'active' : '' }}"

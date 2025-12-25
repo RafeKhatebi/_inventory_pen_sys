@@ -1,5 +1,4 @@
 <?php
-use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StockController;
@@ -7,7 +6,13 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\BackupController;
 use App\Models\Customer;
+use App\Models\Product;
+use App\Models\Stock;
+use App\Models\Transaction;
 
 // Redirect root to login
 Route::get('/', function () {
@@ -27,7 +32,18 @@ Route::middleware('auth')->group(function () {
 
     // Dashboard
     Route::get('/dashboard', function () {
-        return view('dashboard.index');
+        $totalProducts = Product::count();
+        $totalCustomers = Customer::count();
+        $totalStockValue = Product::selectRaw('SUM(COALESCE((SELECT SUM(CASE WHEN type = "in" THEN quantity ELSE -quantity END) FROM stocks WHERE product_id = products.id), 0) * price_per_unit) as total')->value('total') ?? 0;
+        $totalCredits = Customer::selectRaw('SUM(COALESCE((SELECT SUM(CASE WHEN type = "take" THEN amount ELSE -amount END) FROM transactions WHERE customer_id = customers.id), 0)) as total')->value('total') ?? 0;
+        $lowStockProducts = Product::selectRaw('products.id, products.name, products.type, COALESCE(SUM(CASE WHEN stocks.type = "in" THEN stocks.quantity ELSE -stocks.quantity END), 0) as current_stock')
+            ->leftJoin('stocks', 'products.id', '=', 'stocks.product_id')
+            ->groupBy('products.id', 'products.name', 'products.type')
+            ->havingRaw('current_stock <= 10')
+            ->take(5)->get();
+        $recentTransactions = Transaction::with('customer')->latest()->take(5)->get();
+
+        return view('dashboard.index', compact('totalProducts', 'totalCustomers', 'totalStockValue', 'totalCredits', 'lowStockProducts', 'recentTransactions'));
     })->name('dashboard');
 
     // Products
@@ -45,33 +61,27 @@ Route::middleware('auth')->group(function () {
     Route::resource('customers', CustomerController::class);
 
     // Transactions
-
-
-    Route::get('transactions', [TransactionController::class, 'index'])
-        ->name('transactions.index');
-
-    Route::get('transactions/create', [TransactionController::class, 'create'])
-        ->name('transactions.create');
-    Route::get('transactions/{id}', [TransactionController::class, 'show'])
-        ->name('transactions.show');
-
-    Route::get('transactions/{id}/print', [TransactionController::class, 'print'])
-        ->name('transactions.print');
-    Route::post('transactions', [TransactionController::class, 'store'])
-        ->name('transactions.store');
+    Route::resource('transactions', TransactionController::class);
 
     // Reports
-    Route::get('/reports/index', function () {
-        return view('reports.index');
+    Route::get('/reports', function () {
+        return redirect()->route('reports.complete-summary.index');
     })->name('reports.index');
+    Route::get('/reports/inventory', [ReportController::class, 'inventory'])->name('reports.inventory.index');
+    Route::get('/reports/customers', [ReportController::class, 'customers'])->name('reports.customers.index');
+    Route::get('/reports/complete-summary', [ReportController::class, 'completeSummary'])->name('reports.complete-summary.index');
+
     // Users
     Route::resource('users', UserController::class);
-    //Profile -> User Profile
+
+    // Profile
     Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
+
     // Backup & Restore
-    Route::get('/backup', function () {
-        return view('backup.index');
-    })->name('backup.index');
+    Route::get('/backup', [BackupController::class, 'index'])->name('backup.index');
+    Route::post('/backup/create', [BackupController::class, 'create'])->name('backup.create');
+    Route::get('/backup/download/{filename}', [BackupController::class, 'download'])->name('backup.download');
+    Route::delete('/backup/delete/{filename}', [BackupController::class, 'delete'])->name('backup.delete');
 
 });
 
