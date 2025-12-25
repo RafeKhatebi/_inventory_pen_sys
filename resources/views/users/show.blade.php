@@ -31,18 +31,18 @@
                         <div class="text-center mb-3">
                             <img src="https://ui-avatars.com/api/?name=Admin+User&background=random" 
                                  class="rounded-circle mb-2" width="80" alt="User Avatar">
-                            <h5>Admin User</h5>
-                            <p class="text-muted">User ID: USR-001</p>
+                            <h5>{{ $user->name}}</h5>
+                            <p class="text-muted">User ID: {{ $user->id}}</p>
                         </div>
                         
                         <div class="mb-3">
                             <label class="form-label text-muted">Email</label>
-                            <p class="fw-bold">admin@example.com</p>
+                            <p class="fw-bold">{{ $user->email}}</p>
                         </div>
                         
                         <div class="mb-3">
                             <label class="form-label text-muted">Role</label>
-                            <span class="badge bg-primary">Admin</span>
+                            <span class="badge bg-primary">{{ $user->role?->name ?? 'No Role' }}</span>
                         </div>
                         
                         <div class="mb-3">

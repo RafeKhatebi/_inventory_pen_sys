@@ -1,11 +1,11 @@
 <?php
-
-use App\Http\Controllers\Api\CustomerController as ApiCustomerController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Models\Customer;
 
@@ -64,46 +64,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/reports/index', function () {
         return view('reports.index');
     })->name('reports.index');
-
+    // Users
+    Route::resource('users', UserController::class);
+    //Profile -> User Profile
+    Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
+    // Backup & Restore
+    Route::get('/backup', function () {
+        return view('backup.index');
+    })->name('backup.index');
 
 });
 
-// Users
-Route::get('/users', function () {
-    return view('users.index');
-})->name('users.index');
-Route::get('/users/create', function () {
-    return view('users.create');
-})->name('users.create');
-Route::get('/users/{id}', function ($id) {
-    return view('users.show');
-})->name('users.show');
-Route::get('/users/{id}/edit', function ($id) {
-    return view('users.edit');
-})->name('users.edit');
-Route::post('/users', function () {
-    return redirect()->route('users.index');
-})->name('users.store');
-Route::put('/users/{id}', function ($id) {
-    return redirect()->route('users.index');
-})->name('users.update');
-Route::delete('/users/{id}', function ($id) {
-    return redirect()->route('users.index');
-})->name('users.destroy');
-
-
-
-
-
-// Profile -> User Profile
-Route::get('/users/profile/index', function () {
-    return view('users.profile.index');
-})->name('users.profile.index');
-
-// Backup & Restore
-Route::get('/backup', function () {
-    return view('backup.index');
-})->name('backup.index');
 
 // Home redirect to dashboard
 Route::redirect('/home', '/dashboard');

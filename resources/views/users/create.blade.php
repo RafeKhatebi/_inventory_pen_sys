@@ -40,8 +40,9 @@
                                         <label for="user_type" class="form-label">User Type *</label>
                                         <select class="form-select" id="user_type" name="user_type" required>
                                             <option value="" disabled selected>Select User Type</option>
-                                            <option value="admin">Admin</option>
-                                            <option value="manager">Manager</option>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

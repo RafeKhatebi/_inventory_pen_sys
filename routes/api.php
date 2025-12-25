@@ -17,13 +17,6 @@ use App\Http\Controllers\Api\ActivityLogController;
 | API Routes
 |--------------------------------------------------------------------------
 */
-
-Route::get('/test-route', function () {
-    return response()->json([
-        'message' => 'API routes are loading!'
-    ]);
-});
-
 // -------- AUTH (API ONLY) --------
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])
@@ -36,7 +29,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('role:admin')->group(function () {
         Route::apiResource('products', ProductController::class);
         Route::get('products/search/{term}', [ProductController::class, 'search']);
-
         Route::apiResource('customers', CustomerController::class);
         Route::apiResource('warehouse', WarehouseController::class);
         Route::apiResource('stocks', StockController::class);
@@ -44,17 +36,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('users', UserController::class);
         Route::get('roles', [UserController::class, 'getRoles']);
 
-        Route::apiResource('credits', CreditController::class);
-        Route::get('customers/{customer}/credits', [CreditController::class, 'customerCredits']);
-
         // Reports
-        Route::get('reports/customer-credits', [ReportController::class, 'customerCreditReport']);
-        Route::get('reports/stock-movement', [ReportController::class, 'stockMovementHistory']);
-        Route::get('reports/low-stock', [ReportController::class, 'lowStockAlert']);
-        Route::get('reports/export', [ReportController::class, 'exportData']);
-
-        // Activity Logs
-        Route::apiResource('activity-logs', ActivityLogController::class)->only(['index', 'store']);
+        Route::get('reports/stock', [ReportController::class, 'stockReport']);
+        Route::get('reports/transactions', [ReportController::class, 'transactionReport']);
 
         // Backup Management
         Route::post('backup/create', [BackupController::class, 'createBackup']);

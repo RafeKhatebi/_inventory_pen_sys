@@ -9,15 +9,16 @@
         <input class="form-control border-0" type="search" placeholder="Search products, customers...">
     </form>
     <div class="navbar-nav align-items-center ms-auto">
+     
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <img class="rounded-circle me-lg-2"
-                    src="https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff" alt="Admin"
+                    src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=0D8ABC&color=fff" alt="Admin"
                     style="width: 40px; height: 40px;">
-                <span class="d-none d-lg-inline-flex">Admin User</span>
+                <span class="d-none d-lg-inline-flex">{{Auth::user()->name}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                <a href="/users/profile/index" class="dropdown-item">
+                <a href="{{route('profile')}}" class="dropdown-item">
                     <i class="fa fa-user me-2"></i> My Profile
                 </a>
                 <hr class="dropdown-divider">

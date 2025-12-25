@@ -11,7 +11,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->decimal('credit_limit', 15, 2)->default(0)->after('address');
+            if (!Schema::hasColumn('customers', 'credit_limit')) {
+                $table->decimal('credit_limit', 15, 2)->default(0)->after('address');
+            }
         });
     }
 
@@ -21,7 +23,9 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->dropColumn('credit_limit');
+            if (Schema::hasColumn('customers', 'credit_limit')) {
+                $table->dropColumn('credit_limit');
+            }
         });
     }
 };

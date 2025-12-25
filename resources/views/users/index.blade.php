@@ -29,29 +29,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>001</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="https://via.placeholder.com/40" class="rounded me-2" alt="">
-                                        <div>
-                                            <h6 class="mb-0">Ali Ah</h6>
-                                            <small class="text-muted">User ID: 001</small>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td>{{ $user->id }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://via.placeholder.com/40" class="rounded me-2" alt="">
+                                            <div>
+                                                <h6 class="mb-0">{{ $user->name }}</h6>
+                                                <small class="text-muted">User ID: {{ $user->id }}</small>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>Admin</td>
-                                <td>2024-04-27</td>
-                                <td><span class="badge bg-success">Active</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary me-1">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>{{ $user->role ? $user->role->name : '' }}</td>
+                                    <td>{{ $user->created_at?->format('Y-m-d') }}</td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td>
+                                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a href="{{route('users.edit', $user->id)}}" class="btn btn-sm btn-primary me-1">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                            style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Are you sure you want to delete this user?')">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
