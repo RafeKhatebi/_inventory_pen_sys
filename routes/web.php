@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\Api\CustomerController as ApiCustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
+use App\Models\Customer;
 
 // Redirect root to login
 Route::get('/', function () {
@@ -26,7 +30,7 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     // Products
-    Route::resource('products', \App\Http\Controllers\ProductController::class);
+    Route::resource('products', ProductController::class);
 
     // Stocks / Inventory
     Route::get('/stocks', [StockController::class, 'index'])->name('stocks.index');
@@ -37,80 +41,65 @@ Route::middleware('auth')->group(function () {
     Route::get('/stocks/history', [StockController::class, 'history'])->name('stocks.history');
 
     // Customers
-    Route::get('/customers', function () {
-        return view('customers.index');
-    })->name('customers.index');
-    Route::get('/customers/create', function () {
-        return view('customers.create');
-    })->name('customers.create');
-    Route::get('/customers/{id}', function ($id) {
-        return view('customers.show');
-    })->name('customers.show');
-    Route::get('/customers/{id}/edit', function ($id) {
-        return view('customers.edit');
-    })->name('customers.edit');
-    Route::post('/customers', function () {
-        return redirect()->route('customers.index');
-    })->name('customers.store');
-    Route::put('/customers/{id}', function ($id) {
-        return redirect()->route('customers.index');
-    })->name('customers.update');
-    Route::delete('/customers/{id}', function ($id) {
-        return redirect()->route('customers.index');
-    })->name('customers.destroy');
-    Route::get('/customers/transactions', function () {
-        return view('customers.transactions.index');
-    })->name('customers.transactions');
+    Route::resource('customers', CustomerController::class);
+    // Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+    // Route::get('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
+    // Route::get('/customers/{customer}', [CustomerController::class, 'show'])->name('customers.show');
+    // Route::get('/customers/{customer}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
+    // Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
+    // Route::put('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update');
+    // Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+    // Route::get('/customers/transactions', [CustomerController::class, 'transactions']);
+})->name('customers.transactions');
 
-    // Users
-    Route::get('/users', function () {
-        return view('users.index');
-    })->name('users.index');
-    Route::get('/users/create', function () {
-        return view('users.create');
-    })->name('users.create');
-    Route::get('/users/{id}', function ($id) {
-        return view('users.show');
-    })->name('users.show');
-    Route::get('/users/{id}/edit', function ($id) {
-        return view('users.edit');
-    })->name('users.edit');
-    Route::post('/users', function () {
-        return redirect()->route('users.index');
-    })->name('users.store');
-    Route::put('/users/{id}', function ($id) {
-        return redirect()->route('users.index');
-    })->name('users.update');
-    Route::delete('/users/{id}', function ($id) {
-        return redirect()->route('users.index');
-    })->name('users.destroy');
+// Users
+Route::get('/users', function () {
+    return view('users.index');
+})->name('users.index');
+Route::get('/users/create', function () {
+    return view('users.create');
+})->name('users.create');
+Route::get('/users/{id}', function ($id) {
+    return view('users.show');
+})->name('users.show');
+Route::get('/users/{id}/edit', function ($id) {
+    return view('users.edit');
+})->name('users.edit');
+Route::post('/users', function () {
+    return redirect()->route('users.index');
+})->name('users.store');
+Route::put('/users/{id}', function ($id) {
+    return redirect()->route('users.index');
+})->name('users.update');
+Route::delete('/users/{id}', function ($id) {
+    return redirect()->route('users.index');
+})->name('users.destroy');
 
 
 
-    // Reports
-    Route::get('/reports/customers', function () {
-        return view('reports.customers.index');
-    })->name('reports.customers.index');
+// Reports
+Route::get('/reports/customers', function () {
+    return view('reports.customers.index');
+})->name('reports.customers.index');
 
-    Route::get('/reports/complete-summary', function () {
-        return view('reports.complete-summary.index');
-    })->name('reports.complete-summary.index');
+Route::get('/reports/complete-summary', function () {
+    return view('reports.complete-summary.index');
+})->name('reports.complete-summary.index');
 
-    // Profile -> User Profile
-    Route::get('/users/profile/index', function () {
-        return view('users.profile.index');
-    })->name('users.profile.index');
+// Profile -> User Profile
+Route::get('/users/profile/index', function () {
+    return view('users.profile.index');
+})->name('users.profile.index');
 
-    // Settings
-    Route::get('/settings/settings', function () {
-        return view('settings.settings.index');
-    })->name('settings.settings.index');
+// Settings
+Route::get('/settings/settings', function () {
+    return view('settings.settings.index');
+})->name('settings.settings.index');
 
-    Route::get('/settings/backup', function () {
-        return view('settings.backup.index');
-    })->name('settings.backup.index');
+Route::get('/settings/backup', function () {
+    return view('settings.backup.index');
+})->name('settings.backup.index');
 
 
-    // Home redirect to dashboard
-    Route::redirect('/home', '/dashboard');
-});
+// Home redirect to dashboard
+Route::redirect('/home', '/dashboard');

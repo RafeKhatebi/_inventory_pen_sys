@@ -31,7 +31,7 @@ class StockController extends Controller
         }
 
         $products = $query->paginate(15);
-        
+
         // Preserve search parameter in pagination links
         if ($request->has('search')) {
             $products->appends(['search' => $request->get('search')]);

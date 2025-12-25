@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+{{-- updated to use dynamic data --}}
 @section('title', 'Customer Details')
 
 @section('content')
@@ -29,30 +29,30 @@
                     </div>
                     <div class="card-body">
                         <div class="text-center mb-3">
-                            <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" 
-                                 class="rounded-circle mb-2" width="80" alt="Customer Avatar">
-                            <h5>John Doe</h5>
-                            <p class="text-muted">Customer ID: CUST-001</p>
+                            <img src="https://ui-avatars.com/api/?name={{ $customer->name }}&background=random"
+                                class="rounded-circle mb-2" width="80" alt="Customer Avatar">
+                            <h5>{{ $customer->name }}</h5>
+                            <p class="text-muted">{{ $customer->id }}</p>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label class="form-label text-muted">Phone</label>
-                            <p class="fw-bold">+1234567890</p>
+                            <p class="fw-bold">{{ $customer->phone }}</p>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label class="form-label text-muted">Address</label>
-                            <p class="fw-bold">123 Main Street, City, Country</p>
+                            <p class="fw-bold">{{ $customer->address }}</p>
                         </div>
-                        
+
                         <div class="mb-3">
-                            <label class="form-label text-muted">Total Credit</label>
-                            <h4 class="text-danger">$1,500.00</h4>
+                            <label class="form-label text-muted">Credit Limit</label>
+                            <h4 class="text-danger">${{ $customer->credit_limit }}</h4>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label class="form-label text-muted">Member Since</label>
-                            <p class="fw-bold">{{ date('M d, Y') }}</p>
+                            <p class="fw-bold">{{ $customer->created_at->format('M d, Y') }}</p>
                         </div>
                     </div>
                 </div>

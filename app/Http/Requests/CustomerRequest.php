@@ -21,9 +21,10 @@ class CustomerRequest extends FormRequest
      */
     public function rules(): array
     {
+        $customerId = $this->customer?->id;
         return [
             'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20|unique:customers,phone,' . $this->route('customer'),
+            'phone' => 'required|string|min:10|max:20|unique:customers,phone,' . $customerId,
             'address' => 'nullable|string|max:500',
             'credit_limit' => 'required|numeric|min:0',
         ];

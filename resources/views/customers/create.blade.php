@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+{{-- updated to use dynamic data --}}
 @section('title', 'Add New Customer')
 
 @section('content')
@@ -16,7 +16,6 @@
                 </a>
             </div>
         </div>
-
         <!-- Customer Form -->
         <div class="row">
             <div class="col-lg-8">

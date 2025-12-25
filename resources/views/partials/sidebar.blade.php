@@ -59,10 +59,10 @@
                             class="dropdown-item {{ request()->routeIs('customers.create') ? 'active' : '' }}">
                             <i class="fa fa-user-plus me-2"></i>Add Customer
                         </a>
-                        <a href="{{ route('customers.transactions') }}"
+                        {{-- <a href="{{ route('customers.transactions') }}"
                             class="dropdown-item {{ request()->routeIs('customers.transactions') ? 'active' : '' }}">
                             <i class="fa fa-exchange-alt me-2"></i>Transactions
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
 

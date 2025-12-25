@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+{{-- updated the file to use dynamic data --}}
 @section('title', 'Customers')
 
 @section('content')
@@ -14,7 +14,6 @@
                 <input type="text" class="form-control">
             </div>
         </div>
-
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
@@ -25,57 +24,36 @@
                                 <th>Customer</th>
                                 <th>Phone</th>
                                 <th>Address</th>
-                                <th>Total Credit</th>
-                                <th>Balance</th>
+                                <th>Credit Limit</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @for($i = 1; $i <= 5; $i++)
+                            @foreach($customers as $customer)
                                 <tr>
-                                    <td>CUST-00{{ $i }}</td>
+                                    <td>{{ $customer->id }}</td>
+                                    <td>{{ $customer->name }}</td>
+                                    <td>{{ $customer->phone }}</td>
+                                    <td>{{ $customer->address }}</td>
+                                    <td>{{ $customer->credit_limit }}</td>
                                     <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="https://ui-avatars.com/api/?name=Customer+{{ $i }}&background=random"
-                                                class="rounded-circle me-2" width="40" alt="">
-                                            <div>
-                                                <h6 class="mb-0">Customer {{ $i }}</h6>
-                                                <small class="text-muted">Registered:
-                                                    {{ date('d M Y', strtotime("-{$i} days")) }}</small>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>+91 98765{{ rand(10000, 99999) }}</td>
-                                    <td>customer{{ $i }}@example.com</td>
-                                    <td>₹{{ rand(5000, 50000) }}</td>
-                                    <td>
-                                        @if($i % 3 == 0)
-                                            <span class="badge bg-danger">₹{{ rand(1000, 5000) }}</span>
-                                        @else
-                                            <span class="badge bg-success">₹0</span>
-                                        @endif
+                                        <span class="badge bg-success">Active</span>
                                     </td>
                                     <td>
-                                        @if($i % 4 == 0)
-                                            <span class="badge bg-warning">Inactive</span>
-                                        @else
-                                            <span class="badge bg-success">Active</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-sm btn-primary me-1">
-                                            <i class="fa fa-eye"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-warning me-1">
+                                        <a href="{{ route('customers.edit', $customer) }}" class="btn btn-sm btn-warning">
                                             <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                        </a>
+                                        <a href="{{ route('customers.destroy', $customer) }}" class="btn btn-sm btn-danger"
+                                            onclick="event.preventDefault(); document.getElementById('delete-form-{{ $customer->id }}').submit();">
+                                            <i class="fa fa-trash"></i> </a>
+                                        <a href="{{ route('customers.show', $customer) }}" class="btn btn-sm btn-info">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
                                     </td>
                                 </tr>
-                            @endfor
+                            @endforeach
+
                         </tbody>
                     </table>
                 </div>
