@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title', 'Transactions')
+@section('title', 'تراکنشها')
 
 @section('content')
     <div class="container-fluid">
 
-        <h3 class="mb-3">Transactions</h3>
+        <h3 class="mb-3">تراکنشها</h3>
 
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
@@ -14,12 +14,12 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Customer</th>
-                    <th>Type</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Note</th>
-                    <th>Actions</th>
+                    <th>مشتری</th>
+                    <th>نوع</th>
+                    <th>مبلغ</th>
+                    <th>تاریخ</th>
+                    <th>یادداشت</th>
+                    <th>عملیات</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,22 +29,21 @@
                         <td>{{ $transaction->customer->name }}</td>
                         <td>
                             <span class="badge bg-{{ $transaction->type === 'take' ? 'danger' : 'success' }}">
-                                {{ ucfirst($transaction->type) }}
+                                {{ $transaction->type === 'take' ? 'اعتبار' : 'پرداخت' }}
                             </span>
                         </td>
                         <td>@currency($transaction->amount)</td>
-                        {{-- use JalaliHelper --}}
                         <td>@jalali($transaction->transaction_date)</td>
                         <td>{{ $transaction->note }}</td>
                         <td>
                             <a href="{{ route('transactions.show', $transaction->id) }}" class="btn btn-view btn-sm">
                                 <i class="fas fa-eye"></i>
-                                View</a>
+                                مشاهده</a>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center">No transactions found</td>
+                        <td colspan="7" class="text-center">هیچ تراکنشی یافت نشد</td>
                     </tr>
                 @endforelse
             </tbody>

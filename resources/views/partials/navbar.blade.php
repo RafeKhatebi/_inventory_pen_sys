@@ -2,12 +2,9 @@
     <a href="{{ url('/') }}" class="navbar-brand d-flex d-lg-none me-4">
         <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
     </a>
-    {{-- <a href="#" class="sidebar-toggler flex-shrink-0 specific-toggle">
-        <i class="fa fa-bars"></i>
-    </a> --}}
     <!-- Search Form -->
     <form method="GET" action="{{ route('products.index') }}" class="d-flex">
-        <input type="search" name="search" class="form-control" placeholder="Search products..."
+        <input type="search" name="search" class="form-control" placeholder="جستجوی محصولات..."
             value="{{ request('search') }}">
         <button type="submit" class="btn btn-outline-primary ms-2">
             <i class="fa fa-search"></i>
@@ -29,14 +26,14 @@
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                 <a href="{{route('profile')}}" class="dropdown-item">
-                    <i class="fa fa-user me-2"></i> My Profile
+                    <i class="fa fa-user me-2"></i> پروفایل من
                 </a>
                 <hr class="dropdown-divider">
                 <!-- In navbar.blade.php -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="dropdown-item">
-                        <i class="fa fa-sign-out-alt me-2"></i> Logout
+                        <i class="fa fa-sign-out-alt me-2"></i> خروج
                     </button>
                 </form>
             </div>

@@ -59,6 +59,7 @@ Route::middleware('auth')->group(function () {
 
     // Customers
     Route::resource('customers', CustomerController::class);
+    Route::get('/customers/{customer}/report', [CustomerController::class, 'downloadReport'])->name('customers.downloadReport');
 
     // Transactions
     Route::resource('transactions', TransactionController::class);

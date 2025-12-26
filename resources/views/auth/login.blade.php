@@ -7,7 +7,7 @@
                 <!-- Brand Header -->
                 <div class="text-center ">
                     <h1 class="text-primary fw-bold mb-3">
-                        <i class="fa fa-boxes me-2"></i>INVENTORY SYSTEM
+                        <i class="fa fa-boxes me-2"></i>مدیریت موجودی
                     </h1>
                 </div>
                 <!-- Login Card -->
@@ -15,8 +15,8 @@
                     <div class="p-4 p-sm-5">
                         <!-- Card Header -->
                         <div class="text-center mb-4">
-                            <h3 class="text-dark mb-2">Welcome Back</h3>
-                            <p class="text-muted small">Enter your credentials to continue</p>
+                            <h3 class="text-dark mb-2">خوش آمدید</h3>
+                            <p class="text-muted small">لطفاً اطلاعات خود را وارد کنید</p>
                         </div>
 
                         <!-- Error Messages -->
@@ -51,7 +51,7 @@
                             <!-- Email Field -->
                             <div class="mb-4">
                                 <label for="email" class="form-label text-dark fw-medium mb-2">
-                                    <i class="fa fa-envelope text-primary me-2"></i>Email Address
+                                    <i class="fa fa-envelope text-primary me-2"></i>نام کاربری یا ایمیل
                                 </label>
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-text bg-light border-end-0">
@@ -73,7 +73,7 @@
                             <div class="mb-4">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <label for="password" class="form-label text-dark fw-medium">
-                                        <i class="fa fa-lock text-primary me-2"></i>Password
+                                        <i class="fa fa-lock text-primary me-2"></i>رمز عبور
                                     </label>
                                 </div>
                                 <div class="input-group input-group-lg">
@@ -99,7 +99,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="remember" name="remember">
                                     <label class="form-check-label text-muted" for="remember">
-                                        Remember me on this device
+                                        مرا در این دستگاه به خاطر بسپار
                                     </label>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
                             <!-- Submit Button -->
                             <div class="d-grid mb-4">
                                 <button type="submit" class="btn btn-primary btn-lg py-3 fw-bold">
-                                    <i class="fa fa-sign-in-alt me-2"></i>Log In
+                                    <i class="fa fa-sign-in-alt me-2"></i>ورود
                                 </button>
                             </div>
                         </form>

@@ -1,15 +1,14 @@
 @extends('layouts.app')
 
-
-@section('title', 'Users')
+@section('title', 'مدیریت کاربران')
 
 @section('content')
     <div class="container-fluid">
         <!-- Page Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h3 class="mb-1">Users Management</h3>
-                <p class="text-muted mb-0">View and manage your users</p>
+                <h3 class="mb-1">مدیریت کاربران</h3>
+                <p class="text-muted mb-0">مشاهده و مدیریت کاربران شما</p>
             </div>
         </div>
 
@@ -20,12 +19,12 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>User Name</th>
-                                <th>User Type</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th>شناسه</th>
+                                <th>نام کاربر</th>
+                                <th>نوع کاربر</th>
+                                <th>تاریخ</th>
+                                <th>وضعیت</th>
+                                <th>عملیات</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,13 +36,13 @@
                                             <img src="https://via.placeholder.com/40" class="rounded me-2" alt="">
                                             <div>
                                                 <h6 class="mb-0">{{ $user->name }}</h6>
-                                                <small class="text-muted">User ID: {{ $user->id }}</small>
+                                                <small class="text-muted">شناسه کاربر: {{ $user->id }}</small>
                                             </div>
                                         </div>
                                     </td>
                                     <td>{{ $user->role ? $user->role->name : '' }}</td>
-                                    <td>{{ $user->created_at?->format('Y-m-d') }}</td>
-                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td>@jalali($user->created_at)</td>
+                                    <td><span class="badge bg-success">فعال</span></td>
                                     <td>
                                         <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info">
                                             <i class="fa fa-eye"></i>
@@ -56,7 +55,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this user?')">
+                                                onclick="return confirm('آیا مطمئن هستید که میخواهید این کاربر را حذف کنید؟')">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </form>

@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'Products')
+@section('title', 'محصولات')
 
 @section('content')
     <div class="container-fluid">
         <!-- Page Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h3 class="mb-1">Products Management</h3>
-                <p class="text-muted mb-0">View and manage your products</p>
+                <h3 class="mb-1">مدیریت محصولات</h3>
+                <p class="text-muted mb-0">مشاهده و مدیریت محصولات شما</p>
             </div>
             <div class="d-flex gap-2">
                 <!-- Search Form -->
                 <form method="GET" action="{{ route('products.index') }}" class="d-flex">
-                    <input type="search" name="search" class="form-control" placeholder="Search products..."
+                    <input type="search" name="search" class="form-control" placeholder="جستجوی محصولات..."
                         value="{{ request('search') }}">
                     <button type="submit" class="btn btn-outline-primary ms-2">
                         <i class="fa fa-search"></i>
@@ -25,7 +25,7 @@
                     @endif
                 </form>
                 <a href="{{ route('products.create') }}" class="btn btn-primary">
-                    <i class="fa fa-plus me-1"></i> Add Product
+                    <i class="fa fa-plus me-1"></i> افزودن محصول
                 </a>
             </div>
         </div>
@@ -49,8 +49,8 @@
         @if(request('search'))
             <div class="alert alert-info">
                 <i class="fa fa-search me-2"></i>
-                Search results for: <strong>"{{ request('search') }}"</strong>
-                ({{ $products->total() }} {{ $products->total() == 1 ? 'result' : 'results' }} found)
+                نتایج جستجو برای: <strong>"{{ request('search') }}"</strong>
+                ({{ $products->total() }} {{ $products->total() == 1 ? 'نتیجه' : 'نتیجه' }} یافت شد)
             </div>
         @endif
 
@@ -61,14 +61,14 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Product Name</th>
-                                <th>Type</th>
-                                <th>Package Type</th>
-                                <th>Price/Unit</th>
-                                <th>Price/Carton</th>
-                                <th>Weight</th>
-                                <th>Actions</th>
+                                <th>شناسه</th>
+                                <th>نام محصول</th>
+                                <th>نوع</th>
+                                <th>نوع بسته بندی</th>
+                                <th>قیمت/واحد</th>
+                                <th>قیمت/کارتن</th>
+                                <th>وزن</th>
+                                <th>عملیات</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,14 +78,14 @@
                                     <td>
                                         <div>
                                             <h6 class="mb-0">{{ $product->name }}</h6>
-                                            <small class="text-muted">{{ $product->quantity_per_carton }} units/carton</small>
+                                            <small class="text-muted">{{ $product->quantity_per_carton }} واحد/کارتن</small>
                                         </div>
                                     </td>
                                     <td>{{ $product->type }}</td>
                                     <td>{{ $product->package_type }}</td>
                                     <td>@currency($product->price_per_unit)</td>
                                     <td>@currency($product->price_per_carton)</td>
-                                    <td>{{ $product->weight }}kg</td>
+                                    <td>{{ $product->weight }}کیلوگرم</td>
                                     <td>
                                         <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-info me-1">
                                             <i class="fa fa-eye"></i>
@@ -97,7 +97,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this product?')">
+                                                onclick="return confirm('آیا مطمئن هستید که میخواهید این محصول را حذف کنید؟')">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </form>
@@ -108,8 +108,7 @@
                                     <td colspan="8" class="text-center py-4">
                                         <div class="text-muted">
                                             <i class="fa fa-box fa-3x mb-3"></i>
-                                            <p>No products found. <a href="{{ route('products.create') }}">Create your first
-                                                    product</a></p>
+                                            <p>هیچ محصولی یافت نشد. <a href="{{ route('products.create') }}">اولین محصول خود را ایجاد کنید</a></p>
                                         </div>
                                     </td>
                                 </tr>

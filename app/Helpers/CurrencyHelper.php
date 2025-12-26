@@ -6,7 +6,7 @@ class CurrencyHelper
 {
     public static function format($amount)
     {
-        return rtrim(rtrim(number_format($amount, 2), '0'), '.') . ' افغانی';
+        return rtrim(rtrim(number_format($amount, 2), '0'), '.') . '';
     }
 
     public static function formatWithoutCurrency($amount)

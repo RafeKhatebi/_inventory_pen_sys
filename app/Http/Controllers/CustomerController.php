@@ -54,7 +54,12 @@ class CustomerController extends Controller
 
     public function show(Customer $customer)
     {
-        return view('customers.show', compact('customer'));
+        $transactions = $customer->transactions()->orderBy('transaction_date', 'desc')->paginate(10);
+        $currentBalance = $customer->getCurrentCredit();
+        $totalTaken = $customer->getTotalTaken();
+        $totalGiven = $customer->getTotalGiven();
+        
+        return view('customers.show', compact('customer', 'transactions', 'currentBalance', 'totalTaken', 'totalGiven'));
     }
 
     public function edit(Customer $customer)
@@ -78,13 +83,27 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         try {
+            // Check if customer has any transactions
+            $currentBalance = $customer->getCurrentCredit();
+            
+            if ($currentBalance != 0) {
+                return back()->with('error', 'نمی‌توان مشتری را حذف کرد. مشتری دارای اعتبار یا بدهی است. موجودی فعلی: ' . \App\Helpers\CurrencyHelper::format($currentBalance));
+            }
+            
             ActivityLog::log('customer_deleted', Customer::class, $customer->id, "Customer '{$customer->name}' deleted via web interface");
 
             $customer->delete();
 
-            return redirect()->route('customers.index')->with('success', 'Customer deleted successfully!');
+            return redirect()->route('customers.index')->with('success', 'مشتری با موفقیت حذف شد!');
         } catch (\Exception $e) {
-            return back()->with('error', 'Failed to delete customer: ' . $e->getMessage());
+            return back()->with('error', 'خطا در حذف مشتری: ' . $e->getMessage());
         }
+    }
+    
+    public function downloadReport(Customer $customer)
+    {
+        $transactions = $customer->transactions()->orderBy('transaction_date', 'desc')->get();
+        
+        return view('customers.report', compact('customer', 'transactions'));
     }
 }

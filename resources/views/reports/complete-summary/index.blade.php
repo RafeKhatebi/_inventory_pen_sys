@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Complete Summary Report')
+@section('title', 'گزارش خلاصه کامل')
 
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h3 class="mb-1">Complete Summary Report</h3>
-                <p class="text-muted mb-0">Comprehensive system overview and analytics</p>
+                <h3 class="mb-1">گزارش خلاصه کامل</h3>
+                <p class="text-muted mb-0">نمای کلی جامع سیستم و تحلیلها</p>
             </div>
             <div>
                 <button class="btn btn-primary" onclick="window.print()">
-                    <i class="fa fa-print me-1"></i> Print Report
+                    <i class="fa fa-print me-1"></i> چاپ گزارش
                 </button>
             </div>
         </div>
@@ -21,7 +21,7 @@
             <div class="col-md-3">
                 <div class="card bg-primary text-white">
                     <div class="card-body">
-                        <h6>Total Products</h6>
+                        <h6>کل محصولات</h6>
                         <h2>{{ $totalProducts }}</h2>
                     </div>
                 </div>
@@ -29,15 +29,15 @@
             <div class="col-md-3">
                 <div class="card bg-success text-white">
                     <div class="card-body">
-                        <h6>Stock Value</h6>
-                        <h2>${{ number_format($totalStockValue, 2) }}</h2>
+                        <h6>ارزش موجودی</h6>
+                        <h2>@currency($totalStockValue)</h2>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card bg-info text-white">
                     <div class="card-body">
-                        <h6>Total Customers</h6>
+                        <h6>کل مشتریان</h6>
                         <h2>{{ $totalCustomers }}</h2>
                     </div>
                 </div>
@@ -45,8 +45,8 @@
             <div class="col-md-3">
                 <div class="card bg-warning text-white">
                     <div class="card-body">
-                        <h6>Total Credits</h6>
-                        <h2>${{ number_format($totalCredits, 2) }}</h2>
+                        <h6>کل اعتبارات</h6>
+                        <h2>@currency($totalCredits)</h2>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
             <div class="col-md-6 mb-4">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0">Recent Stock Movements</h5>
+                        <h5 class="mb-0">حرکات اخیر موجودی</h5>
                     </div>
                     <div class="card-body">
                         @forelse($recentStocks as $stock)
@@ -65,14 +65,14 @@
                                 <div>
                                     <strong>{{ $stock->product->name }}</strong>
                                     <br>
-                                    <small class="text-muted">{{ $stock->created_at->format('M d, Y H:i') }}</small>
+                                    <small class="text-muted">@jalali($stock->created_at)</small>
                                 </div>
                                 <span class="badge bg-{{ $stock->type == 'in' ? 'success' : 'warning' }}">
                                     {{ $stock->type == 'in' ? '+' : '-' }}{{ $stock->quantity }}
                                 </span>
                             </div>
                         @empty
-                            <p class="text-muted text-center">No recent stock movements</p>
+                            <p class="text-muted text-center">هیچ حرکت موجودی اخیر وجود ندارد</p>
                         @endforelse
                     </div>
                 </div>
@@ -82,7 +82,7 @@
             <div class="col-md-6 mb-4">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0">Recent Transactions</h5>
+                        <h5 class="mb-0">تراکنشهای اخیر</h5>
                     </div>
                     <div class="card-body">
                         @forelse($recentTransactions as $transaction)
@@ -90,14 +90,14 @@
                                 <div>
                                     <strong>{{ $transaction->customer->name }}</strong>
                                     <br>
-                                    <small class="text-muted">{{ $transaction->transaction_date->format('M d, Y') }}</small>
+                                    <small class="text-muted">@jalali($transaction->transaction_date)</small>
                                 </div>
                                 <span class="badge bg-{{ $transaction->type == 'take' ? 'warning' : 'success' }}">
-                                    {{ $transaction->type == 'take' ? 'Took' : 'Paid' }} ${{ number_format($transaction->amount, 2) }}
+                                    {{ $transaction->type == 'take' ? 'اعتبار گرفت' : 'پرداخت کرد' }} @currency($transaction->amount)
                                 </span>
                             </div>
                         @empty
-                            <p class="text-muted text-center">No recent transactions</p>
+                            <p class="text-muted text-center">هیچ تراکنش اخیر وجود ندارد</p>
                         @endforelse
                     </div>
                 </div>
@@ -109,7 +109,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0">Low Stock Alert</h5>
+                        <h5 class="mb-0">هشدار موجودی کم</h5>
                     </div>
                     <div class="card-body">
                         @forelse($lowStockProducts as $product)
@@ -120,11 +120,11 @@
                                     <small class="text-muted">{{ $product->type }}</small>
                                 </div>
                                 <span class="badge bg-{{ $product->current_stock == 0 ? 'danger' : 'warning' }}">
-                                    {{ $product->current_stock }} left
+                                    {{ $product->current_stock }} باقیمانده
                                 </span>
                             </div>
                         @empty
-                            <p class="text-muted text-center">All products have sufficient stock</p>
+                            <p class="text-muted text-center">تمام محصولات موجودی کافی دارند</p>
                         @endforelse
                     </div>
                 </div>

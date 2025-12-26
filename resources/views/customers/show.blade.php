@@ -7,15 +7,15 @@
         <!-- Page Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h3 class="mb-1">Customer Details</h3>
-                <p class="text-muted mb-0">View customer information and credit history</p>
+                <h3 class="mb-1">جزئیات مشتری</h3>
+                <p class="text-muted mb-0">مشاهده اطلاعات مشتری و تاریخچه اعتبار</p>
             </div>
             <div>
-                <a href="{{ route('customers.edit', 1) }}" class="btn btn-warning me-2">
-                    <i class="fa fa-edit me-1"></i> Edit
+                <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-warning me-2">
+                    <i class="fa fa-edit me-1"></i> ویرایش
                 </a>
                 <a href="{{ route('customers.index') }}" class="btn btn-outline-secondary">
-                    <i class="fa fa-arrow-left me-1"></i> Back to Customers
+                    <i class="fa fa-arrow-left me-1"></i> بازگشت به مشتریان
                 </a>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0"><i class="fa fa-user me-2"></i>Customer Information</h5>
+                        <h5 class="mb-0"><i class="fa fa-user me-2"></i>اطلاعات مشتری</h5>
                     </div>
                     <div class="card-body">
                         <div class="text-center mb-3">
@@ -36,22 +36,22 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-muted">Phone</label>
+                            <label class="form-label text-muted">تلفن</label>
                             <p class="fw-bold">{{ $customer->phone }}</p>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-muted">Address</label>
+                            <label class="form-label text-muted">آدرس</label>
                             <p class="fw-bold">{{ $customer->address }}</p>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-muted">Credit Limit</label>
+                            <label class="form-label text-muted">حد اعتبار</label>
                             <h4 class="text-danger">@currency($customer->credit_limit)</h4>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-muted">Member Since</label>
+                            <label class="form-label text-muted">عضو از</label>
                             <p class="fw-bold">@jalali($customer->created_at)</p>
                         </div>
                     </div>
@@ -63,41 +63,62 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0"><i class="fa fa-credit-card me-2"></i>Credit History</h5>
-                        {{-- <a href="{{ route('customers.downloadReport', $customer->id) }}"
+                        <h5 class="mb-0"><i class="fa fa-credit-card me-2"></i>تاریخچه اعتبار</h5>
+                        <a href="{{ route('customers.downloadReport', $customer->id) }}"
                             class="btn btn-sm btn-outline-primary">
-                            <i class="fa fa-download me-1"></i> Download Report
-                        </a> --}}
+                            <i class="fa fa-download me-1"></i> دانلود گزارش
+                        </a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Description</th>
-                                        <th>Amount</th>
-                                        <th>Type</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
+                                        <th>تاریخ</th>
+                                        <th>توضیحات</th>
+                                        <th>مقدار</th>
+                                        <th>نوع</th>
+                                        <th>وضعیت</th>
+                                        <th>عملیات</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>{{ date('M d, Y') }}</td>
-                                        <td>{{ $customer->name }}</td>
-                                        <td class="text-danger">{{ number_format($customer->credit_limit, 0) }}</td>
-                                        <td><span class="badge bg-warning">{{ $customer->type }}</span></td>
-                                        <td><span class="badge bg-danger">{{ $customer->status }}</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-success">
-                                                <i class="fa fa-check"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-primary">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
+                                    {{-- loop to get a transaction --}}
+                                    @forelse($transactions as $transaction)
+                                        <tr>
+                                            <td>@jalali($transaction->transaction_date)</td>
+                                            <td>{{ $transaction->description }}</td>
+                                            <td>@currency($transaction->amount)</td>
+                                            <td>
+                                                <span
+                                                    class="badge bg-{{ $transaction->type == 'take' ? 'warning' : 'success' }}">
+                                                    {{ $transaction->type == 'take' ? 'اعتبار گرفت' : 'پرداخت کرد' }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                @if($transaction->status == 'pending')
+                                                    <span class="badge bg-secondary">در انتظار</span>
+                                                @elseif($transaction->status == 'completed')
+                                                    <span class="badge bg-success">تکمیل شد</span>
+                                                @else
+                                                    <span class="badge bg-danger">لغو شد</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('transactions.show', $transaction->id) }}"
+                                                    class="btn btn-sm btn-outline-info">
+                                                    <i class="fa fa-eye me-1"></i> مشاهده
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr></tr>
+                                        <td colspan="6" class="text-center py-4">
+                                            <p class="text-muted">هیچ تراکنشی برای این مشتری وجود ندارد.</p>
                                         </td>
-                                    </tr>
+                                        </tr>
+                                    @endforelse
+
                                 </tbody>
                             </table>
                         </div>

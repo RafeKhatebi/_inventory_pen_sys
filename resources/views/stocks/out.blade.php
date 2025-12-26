@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Stock Out')
+@section('title', 'خروج کالا')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/select2/css/select2.min.css') }}">
@@ -11,12 +11,12 @@
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h3 class="mb-1">Stock Out</h3>
-                <p class="text-muted mb-0">Remove stock from inventory</p>
+                <h3 class="mb-1">خروج کالا</h3>
+                <p class="text-muted mb-0">حذف موجودی از انبار</p>
             </div>
             <div>
                 <a href="{{ route('stocks.index') }}" class="btn btn-outline-secondary">
-                    <i class="fa fa-arrow-left me-1"></i> Back to Stock
+                    <i class="fa fa-arrow-left me-1"></i> بازگشت به موجودی
                 </a>
             </div>
         </div>
@@ -30,15 +30,15 @@
                             <input type="hidden" name="type" value="out">
 
                             <div class="mb-3">
-                                <label for="product_id" class="form-label">Product *</label>
+                                <label for="product_id" class="form-label">محصول *</label>
                                 <select name="product_id" id="product_id" class="form-control select2" required>
-                                    <option value="">Search and Select Product...</option>
+                                    <option value="">جستجو و انتخاب محصول...</option>
                                     @foreach ($products as $product)
                                         @php
                                             $currentStock = $product->stock()->selectRaw('SUM(CASE WHEN type = "in" THEN quantity ELSE -quantity END) as current_stock')->value('current_stock') ?? 0;
                                         @endphp
                                         <option value="{{ $product->id }}" {{ request('product') == $product->id ? 'selected' : '' }} data-stock="{{ $currentStock }}">
-                                            {{ $product->name }} - {{ $product->type }} (Stock: {{ $currentStock }})
+                                            {{ $product->name }} - {{ $product->type }} (موجودی: {{ $currentStock }})
                                         </option>
                                     @endforeach
                                 </select>
@@ -47,19 +47,19 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="quantity" class="form-label">Quantity *</label>
+                                <label for="quantity" class="form-label">مقدار *</label>
                                 <input type="number" name="quantity" id="quantity" class="form-control" min="1" required
                                     value="{{ old('quantity') }}">
-                                <small class="text-muted">Available stock will be shown when product is selected</small>
+                                <small class="text-muted">موجودی قابل دسترس هنگام انتخاب محصول نمایش داده میشود</small>
                                 @error('quantity')
                                     <small class="text-danger d-block">{{ $message }}</small>
                                 @enderror
                             </div>
 
                             <div class="mb-3">
-                                <label for="note" class="form-label">Note</label>
+                                <label for="note" class="form-label">یادداشت</label>
                                 <textarea name="note" id="note" class="form-control" rows="3"
-                                    placeholder="Optional note about this stock transaction (e.g., sale, damage, transfer)">{{ old('note') }}</textarea>
+                                    placeholder="یادداشت اختیاری درباره این تراکنش موجودی (مثلاً فروش، آسیب، انتقال)">{{ old('note') }}</textarea>
                                 @error('note')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -72,10 +72,10 @@
 
                             <div class="d-flex justify-content-end gap-2">
                                 <button type="reset" class="btn btn-outline-secondary">
-                                    <i class="fa fa-redo me-1"></i> Reset
+                                    <i class="fa fa-redo me-1"></i> ریست
                                 </button>
                                 <button type="submit" class="btn btn-warning" id="submit-btn">
-                                    <i class="fa fa-minus me-1"></i> Remove Stock
+                                    <i class="fa fa-minus me-1"></i> حذف موجودی
                                 </button>
                             </div>
                         </form>
@@ -90,7 +90,7 @@
         <script>
             $(document).ready(function () {
                 $('.select2').select2({
-                    placeholder: 'Search and select a product...',
+                    placeholder: 'جستجو و انتخاب محصول...',
                     allowClear: true,
                     width: '100%',
                     matcher: function(params, data) {
@@ -118,14 +118,14 @@
 
                 if (currentStock == 0) {
                     warning.style.display = 'block';
-                    warningMessage.textContent = 'This product is out of stock!';
+                    warningMessage.textContent = 'این محصول ناموجود است!';
                     submitBtn.disabled = true;
                     quantityInput.max = 0;
                 } else {
                     warning.style.display = 'none';
                     submitBtn.disabled = false;
                     quantityInput.max = currentStock;
-                    quantityInput.placeholder = `Max: ${currentStock}`;
+                    quantityInput.placeholder = `حداکثر: ${currentStock}`;
                 }
             });
 
@@ -138,7 +138,7 @@
 
                 if (quantity > currentStock) {
                     warning.style.display = 'block';
-                    warningMessage.textContent = `Quantity cannot exceed available stock (${currentStock})`;
+                    warningMessage.textContent = `مقدار نمیتواند از موجودی قابل دسترس (${currentStock}) بیشتر باشد`;
                 } else {
                     warning.style.display = 'none';
                 }

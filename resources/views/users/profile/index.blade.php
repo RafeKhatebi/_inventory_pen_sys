@@ -11,7 +11,7 @@
             </div> --}}
             <div>
                 <a href="{{ route('users.index') }}" class="btn btn-outline-secondary">
-                    <i class="fa fa-arrow-left me-1"></i> Back to Users
+                    <i class="fa fa-arrow-left me-1"></i> برگشت به کاربران
                 </a>
             </div>
         </div>
@@ -27,40 +27,43 @@
                             <!-- Basic Information -->
                             <div class="mb-1">
                                 <h5 class="mb-3 border-bottom pb-2">
-                                    <i class="fa fa-info-circle me-2 text-primary"></i>Basic Information
+                                    <i class="fa fa-info-circle me-2 text-primary"></i>اطلاعات پایه
                                 </h5>
 
                                 <div class="row">
                                     <div class="col-md-6 mb-2">
-                                        <label for="full_name" class="form-label">Full Name *</label>
-                                        <input type="text" class="form-control" id="full_name" name="full_name" value="{{$user->name}}" required>
+                                        <label for="full_name" class="form-label">نام کامل *</label>
+                                        <input type="text" class="form-control" id="full_name" name="full_name"
+                                            value="{{$user->name}}" required>
                                     </div>
 
                                     <div class="col-md-6 mb-2">
-                                        <label for="user_type" class="form-label">User Type *</label>
+                                        <label for="user_type" class="form-label">نوع کاربر *</label>
                                         <select class="form-select" id="user_type" name="user_type" required>
-                                            <option value="" disabled selected>{{ $user->role?->name ?? 'No Role' }}</option>
+                                            <option value="" disabled selected>{{ $user->role?->name ?? 'No Role' }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-2">
-                                        <label for="user_name" class="form-label">User Name *</label>
-                                        <input type="text" class="form-control" id="user_name" name="user_name" value="{{$user->email}}" required>
+                                        <label for="user_name" class="form-label">نام کاربری *</label>
+                                        <input type="text" class="form-control" id="user_name" name="user_name"
+                                            value="{{$user->email}}" required>
                                     </div>
 
                                     <div class="col-md-6 mb-2">
-                                        <label for="password" class="form-label">Password *</label>
+                                        <label for="password" class="form-label">رمز عبور *</label>
                                         <input type="password" class="form-control" id="password" name="password" required>
                                     </div>
                                 </div>
                             </div>
                             <!-- Form Actions -->
-                            {{-- <div class="d-flex justify-content-end gap-2">
+                            <div class="d-flex justify-content-end gap-2">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-save me-1"></i> Save User
+                                    <i class="fa fa-save me-1"></i> ذخیره کاربر
                                 </button>
-                            </div> --}}
+                            </div>
                         </form>
                     </div>
                 </div>

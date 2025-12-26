@@ -1,18 +1,18 @@
 @extends('layouts.app')
-{{-- updated to use dynamic data --}}
-@section('title', 'Add New Customer')
+
+@section('title', 'افزودن مشتری جدید')
 
 @section('content')
     <div class="container-fluid">
         <!-- Page Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h3 class="mb-1">Add New Customer</h3>
-                <p class="text-muted mb-0">Create a new customer account</p>
+                <h3 class="mb-1">افزودن مشتری جدید</h3>
+                <p class="text-muted mb-0">ایجاد حساب مشتری جدید</p>
             </div>
             <div>
                 <a href="{{ route('customers.index') }}" class="btn btn-outline-secondary">
-                    <i class="fa fa-arrow-left me-1"></i> Back to Customers
+                    <i class="fa fa-arrow-left me-1"></i> بازگشت به مشتریان
                 </a>
             </div>
         </div>
@@ -29,10 +29,10 @@
                             <!-- Form Actions -->
                             <div class="d-flex justify-content-end gap-2">
                                 <button type="reset" class="btn btn-outline-secondary">
-                                    <i class="fa fa-redo me-1"></i> Reset
+                                    <i class="fa fa-redo me-1"></i> ریست
                                 </button>
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-save me-1"></i> Save Customer
+                                    <i class="fa fa-save me-1"></i> ذخیره مشتری
                                 </button>
                             </div>
                         </form>
