@@ -78,11 +78,18 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         try {
+            // Check if product has stock transactions
+            $hasStock = $product->stock()->exists();
+            
+            if ($hasStock) {
+                return back()->with('error', 'این محصول قابل حذف نیست زیرا در انبار موجود دارد');
+            }
+
             ActivityLog::log('product_deleted', Product::class, $product->id, "Product '{$product->name}' deleted via web interface");
 
             $product->delete();
 
-            return redirect()->route('products.index')->with('success', 'Product deleted successfully!');
+            return redirect()->route('products.index')->with('success', 'محصول با موفقیت حذف شد!');
         } catch (\Exception $e) {
             return back()->with('error', 'Failed to delete product: ' . $e->getMessage());
         }
