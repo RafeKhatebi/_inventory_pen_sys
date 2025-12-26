@@ -1,35 +1,49 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\StockController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\BackupController;
-use App\Models\Customer;
-use App\Models\Product;
-use App\Models\Stock;
-use App\Models\Transaction;
+use App\Http\Controllers\{
+    AuthController,
+    BackupController,
+    CustomerController,
+    ProductController,
+    ProfileController,
+    ReportController,
+    StockController,
+    TransactionController,
+    UserController
+};
+use App\Models\{Customer, Product, Transaction};
 
-// Redirect root to login
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
 
-// Authentication Routes
+// Root redirect
+Route::get('/', fn() => redirect()->route('login'));
+Route::redirect('/home', '/dashboard');
+
+/*
+|--------------------------------------------------------------------------
+| Authentication Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 });
 
-// Protected routes - User must be logged in
+/*
+|--------------------------------------------------------------------------
+| Protected Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware('auth')->group(function () {
-    // Logout
+    
+    // Authentication
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
+    
     // Dashboard
     Route::get('/dashboard', function () {
         $totalProducts = Product::count();
@@ -46,44 +60,59 @@ Route::middleware('auth')->group(function () {
         return view('dashboard.index', compact('totalProducts', 'totalCustomers', 'totalStockValue', 'totalCredits', 'lowStockProducts', 'recentTransactions'));
     })->name('dashboard');
 
-    // Products
+    /*
+    |--------------------------------------------------------------------------
+    | Resource Routes
+    |--------------------------------------------------------------------------
+    */
     Route::resource('products', ProductController::class);
-
-    // Stocks / Inventory
-    Route::get('/stocks', [StockController::class, 'index'])->name('stocks.index');
-    Route::get('/stocks/create', [StockController::class, 'create'])->name('stocks.create');
-    Route::post('/stocks', [StockController::class, 'store'])->name('stocks.store');
-    Route::get('/stocks/in', [StockController::class, 'stockIn'])->name('stocks.in');
-    Route::get('/stocks/out', [StockController::class, 'stockOut'])->name('stocks.out');
-    Route::get('/stocks/history', [StockController::class, 'history'])->name('stocks.history');
-
-    // Customers
     Route::resource('customers', CustomerController::class);
-    Route::get('/customers/{customer}/report', [CustomerController::class, 'downloadReport'])->name('customers.downloadReport');
-
-    // Transactions
     Route::resource('transactions', TransactionController::class);
-
-    // Reports
-    Route::get('/reports', function () {
-        return redirect()->route('reports.complete-summary.index');
-    })->name('reports.index');
-    Route::get('/reports/inventory', [ReportController::class, 'inventory'])->name('reports.inventory.index');
-    Route::get('/reports/customers', [ReportController::class, 'customers'])->name('reports.customers.index');
-    Route::get('/reports/complete-summary', [ReportController::class, 'completeSummary'])->name('reports.complete-summary.index');
-
-    // Users
     Route::resource('users', UserController::class);
 
-    // Profile
+    /*
+    |--------------------------------------------------------------------------
+    | Stock Management Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('stocks')->name('stocks.')->group(function () {
+        Route::get('/', [StockController::class, 'index'])->name('index');
+        Route::get('/create', [StockController::class, 'create'])->name('create');
+        Route::post('/', [StockController::class, 'store'])->name('store');
+        Route::get('/in', [StockController::class, 'stockIn'])->name('in');
+        Route::get('/out', [StockController::class, 'stockOut'])->name('out');
+        Route::get('/history', [StockController::class, 'history'])->name('history');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Report Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('reports')->name('reports.')->group(function () {
+        Route::get('/', fn() => redirect()->route('reports.complete-summary.index'))->name('index');
+        Route::get('/inventory', [ReportController::class, 'inventory'])->name('inventory.index');
+        Route::get('/customers', [ReportController::class, 'customers'])->name('customers.index');
+        Route::get('/complete-summary', [ReportController::class, 'completeSummary'])->name('complete-summary.index');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backup Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('backup')->name('backup.')->group(function () {
+        Route::get('/', [BackupController::class, 'index'])->name('index');
+        Route::post('/create', [BackupController::class, 'create'])->name('create');
+        Route::get('/download/{filename}', [BackupController::class, 'download'])->name('download');
+        Route::delete('/delete/{filename}', [BackupController::class, 'delete'])->name('delete');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Additional Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/customers/{customer}/report', [CustomerController::class, 'downloadReport'])->name('customers.downloadReport');
     Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
-
-    // Backup & Restore
-    Route::get('/backup', [BackupController::class, 'index'])->name('backup.index');
-    Route::post('/backup/create', [BackupController::class, 'create'])->name('backup.create');
-    Route::get('/backup/download/{filename}', [BackupController::class, 'download'])->name('backup.download');
-    Route::delete('/backup/delete/{filename}', [BackupController::class, 'delete'])->name('backup.delete');
-
 });
-// Home redirect to dashboard
-Route::redirect('/home', '/dashboard');

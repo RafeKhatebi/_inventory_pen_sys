@@ -1,48 +1,79 @@
 <?php
 
-use App\Http\Controllers\Api\StockController;
-use App\Http\Controllers\Api\BackupController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\CreditController;
-use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\CustomerController;
-use App\Http\Controllers\Api\WarehouseController;
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\ReportController;
+use App\Http\Controllers\Api\{
+    AuthController,
+    BackupController,
+    CustomerController,
+    ProductController,
+    ReportController,
+    StockController,
+    UserController,
+    WarehouseController
+};
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
 */
-// -------- AUTH (API ONLY) --------
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->middleware('auth:sanctum');
 
-// -------- PROTECTED API ROUTES --------
+/*
+|--------------------------------------------------------------------------
+| Authentication Routes
+|--------------------------------------------------------------------------
+*/
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+/*
+|--------------------------------------------------------------------------
+| Protected API Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware('auth:sanctum')->group(function () {
 
-    // Only Admins
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Only Routes
+    |--------------------------------------------------------------------------
+    */
     Route::middleware('role:admin')->group(function () {
+
+        // Product Management
         Route::apiResource('products', ProductController::class);
         Route::get('products/search/{term}', [ProductController::class, 'search']);
+
+        // Customer Management
         Route::apiResource('customers', CustomerController::class);
-        Route::apiResource('warehouse', WarehouseController::class);
+
+        // Stock Management
         Route::apiResource('stocks', StockController::class);
         Route::get('stocks/current', [StockController::class, 'getCurrentStock']);
+
+        // Warehouse Management
+        Route::apiResource('warehouse', WarehouseController::class);
+
+        // User Management
         Route::apiResource('users', UserController::class);
         Route::get('roles', [UserController::class, 'getRoles']);
 
-        // Reports
-        Route::get('reports/stock', [ReportController::class, 'stockReport']);
-        Route::get('reports/transactions', [ReportController::class, 'transactionReport']);
+        /*
+        |--------------------------------------------------------------------------
+        | Reports API
+        |--------------------------------------------------------------------------
+        */
+        Route::prefix('reports')->group(function () {
+            Route::get('stock', [ReportController::class, 'stockReport']);
+            Route::get('transactions', [ReportController::class, 'transactionReport']);
+        });
 
-        // Backup Management
-        Route::post('backup/create', [BackupController::class, 'createBackup']);
-        Route::get('backup/list', [BackupController::class, 'listBackups']);
-        Route::get('backup/download/{filename}', [BackupController::class, 'downloadBackup']);
+        /* Backup Management API */
+
+        Route::prefix('backup')->group(function () {
+            Route::post('create', [BackupController::class, 'createBackup']);
+            Route::get('list', [BackupController::class, 'listBackups']);
+            Route::get('download/{filename}', [BackupController::class, 'downloadBackup']);
+        });
     });
-
 });

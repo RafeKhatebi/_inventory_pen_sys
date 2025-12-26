@@ -7,7 +7,7 @@
                 <!-- Brand Header -->
                 <div class="text-center ">
                     <h1 class="text-primary fw-bold mb-3">
-                        <i class="fa fa-boxes me-2"></i>مدیریت موجودی
+                        <i class="fa fa-boxes me-2"></i>مدیریت گدام
                     </h1>
                 </div>
                 <!-- Login Card -->

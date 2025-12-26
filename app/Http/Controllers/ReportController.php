@@ -20,11 +20,19 @@ class ReportController extends Controller
             ->selectRaw('COALESCE(SUM(CASE WHEN stocks.type = "in" THEN stocks.quantity ELSE -stocks.quantity END), 0) * products.price_per_unit as stock_value')
             ->leftJoin('stocks', 'products.id', '=', 'stocks.product_id')
             ->groupBy('products.id', 'products.name', 'products.type', 'products.price_per_unit')
-            ->get();
+            ->paginate(15);
 
-        $totalValue = $products->sum('stock_value');
-        $lowStockProducts = $products->where('current_stock', '<=', 10)->count();
-        $outOfStockProducts = $products->where('current_stock', 0)->count();
+        $totalValue = Product::selectRaw('SUM(COALESCE((SELECT SUM(CASE WHEN type = "in" THEN quantity ELSE -quantity END) FROM stocks WHERE product_id = products.id), 0) * price_per_unit) as total')->value('total') ?? 0;
+        $lowStockProducts = Product::selectRaw('COUNT(*) as count')
+            ->leftJoin('stocks', 'products.id', '=', 'stocks.product_id')
+            ->groupBy('products.id')
+            ->havingRaw('COALESCE(SUM(CASE WHEN stocks.type = "in" THEN stocks.quantity ELSE -stocks.quantity END), 0) <= 10')
+            ->count();
+        $outOfStockProducts = Product::selectRaw('COUNT(*) as count')
+            ->leftJoin('stocks', 'products.id', '=', 'stocks.product_id')
+            ->groupBy('products.id')
+            ->havingRaw('COALESCE(SUM(CASE WHEN stocks.type = "in" THEN stocks.quantity ELSE -stocks.quantity END), 0) = 0')
+            ->count();
 
         return view('reports.inventory.index', compact('products', 'totalValue', 'lowStockProducts', 'outOfStockProducts'));
     }
@@ -36,11 +44,11 @@ class ReportController extends Controller
             ->selectRaw('COUNT(transactions.id) as total_transactions')
             ->leftJoin('transactions', 'customers.id', '=', 'transactions.customer_id')
             ->groupBy('customers.id', 'customers.name', 'customers.phone', 'customers.address', 'customers.credit_limit')
-            ->get();
+            ->paginate(15);
 
-        $totalCustomers = $customers->count();
-        $totalCredits = $customers->sum('current_balance');
-        $activeCustomers = $customers->where('total_transactions', '>', 0)->count();
+        $totalCustomers = Customer::count();
+        $totalCredits = Customer::selectRaw('SUM(COALESCE((SELECT SUM(CASE WHEN type = "take" THEN amount ELSE -amount END) FROM transactions WHERE customer_id = customers.id), 0)) as total')->value('total') ?? 0;
+        $activeCustomers = Customer::whereHas('transactions')->count();
 
         return view('reports.customers.index', compact('customers', 'totalCustomers', 'totalCredits', 'activeCustomers'));
     }

@@ -72,6 +72,13 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Pagination -->
+                @if($customers->hasPages())
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $customers->links() }}
+                    </div>
+                @endif
             </div>
         </div>
     </div>

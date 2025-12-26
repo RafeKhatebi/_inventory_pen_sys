@@ -34,45 +34,8 @@
     </div>
 
     <!-- JavaScript -->
-    {{--
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-
-    {{--
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> --}}
-    <script src="{{ asset('assets/dist/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/dist/jquery/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/dist/js/bootstrap.bundle.min.js') }}"></script>
-    <script>
-        // Sidebar toggle
-        document.querySelector('.sidebar-toggler').addEventListener('click', function () {
-            document.querySelector('.sidebar').classList.toggle('open');
-            document.querySelector('.content').classList.toggle('open');
-        });
-
-        // Close sidebar on mobile when clicking outside
-        document.addEventListener('click', function (event) {
-            const sidebar = document.querySelector('.sidebar');
-            const toggler = document.querySelector('.sidebar-toggler');
-            const isMobile = window.innerWidth <= 768;
-
-            if (isMobile && sidebar.classList.contains('open') &&
-                !sidebar.contains(event.target) &&
-                !toggler.contains(event.target)) {
-                sidebar.classList.remove('open');
-                document.querySelector('.content').classList.remove('open');
-            }
-        });
-
-        // Auto-hide alerts after 5 seconds
-        setTimeout(function () {
-            const alerts = document.querySelectorAll('.alert');
-            alerts.forEach(function (alert) {
-                const bsAlert = new bootstrap.Alert(alert);
-                bsAlert.close();
-            });
-        }, 5000);
-    </script>
-
     @stack('scripts')
 </body>
-
 </html>

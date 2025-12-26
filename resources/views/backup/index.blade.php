@@ -45,13 +45,13 @@
                                         <td>{{ $backup['date'] }}</td>
                                         <td>{{ $backup['size'] }}</td>
                                         <td>
-                                            <a href="{{ route('backup.download', $backup['name']) }}" 
-                                               class="btn btn-sm btn-success me-1">
+                                            <a href="{{ route('backup.download', $backup['name']) }}"
+                                                class="btn btn-sm btn-success me-1">
                                                 <i class="fa fa-download"></i> دانلود
                                             </a>
-                                            <form action="{{ route('backup.delete', $backup['name']) }}" 
-                                                  method="POST" class="d-inline"
-                                                  onsubmit="return confirm('آیا مطمئن هستید که میخواهید این پشتیبان را حذف کنید؟')">
+                                            <form action="{{ route('backup.delete', $backup['name']) }}" method="POST"
+                                                class="d-inline"
+                                                onsubmit="return confirm('آیا مطمئن هستید که میخواهید این پشتیبان را حذف کنید؟')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger">

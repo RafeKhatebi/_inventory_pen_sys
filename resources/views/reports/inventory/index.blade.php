@@ -88,6 +88,13 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Pagination -->
+                @if($products->hasPages())
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $products->links() }}
+                    </div>
+                @endif
             </div>
         </div>
     </div>
