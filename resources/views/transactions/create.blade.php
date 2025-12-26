@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('title', 'Add New Transactions')
 @push('styles')
 <link rel="stylesheet" href="{{ asset('assets/select2/css/select2.min.css') }}">
@@ -50,7 +51,7 @@
 
                             <div class="mb-3">
                                 <label>Date</label>
-                                <input type="date" name="transaction_date" class="form-control" required>
+                                <input type="date" name="transaction_date" class="form-control" value="{{ date('Y-m-d') }}" required>
                             </div>
 
                             <div class="mb-3">
@@ -68,6 +69,8 @@
     </div>
 @push('scripts')
 <script src="{{ asset('assets/select2/js/select2.min.js') }}"></script>
+{{-- online script --}}
+{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
 <script>
 $(document).ready(function() {
     $('.select2').select2({

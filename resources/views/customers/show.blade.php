@@ -47,12 +47,12 @@
 
                         <div class="mb-3">
                             <label class="form-label text-muted">Credit Limit</label>
-                            <h4 class="text-danger">${{ $customer->credit_limit }}</h4>
+                            <h4 class="text-danger">@currency($customer->credit_limit)</h4>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label text-muted">Member Since</label>
-                            <p class="fw-bold">{{ $customer->created_at->format('M d, Y') }}</p>
+                            <p class="fw-bold">@jalali($customer->created_at)</p>
                         </div>
                     </div>
                 </div>

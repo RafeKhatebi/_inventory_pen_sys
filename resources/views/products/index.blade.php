@@ -83,8 +83,8 @@
                                     </td>
                                     <td>{{ $product->type }}</td>
                                     <td>{{ $product->package_type }}</td>
-                                    <td>{{ number_format($product->price_per_unit, 2) }}</td>
-                                    <td>{{ number_format($product->price_per_carton, 2) }}</td>
+                                    <td>@currency($product->price_per_unit)</td>
+                                    <td>@currency($product->price_per_carton)</td>
                                     <td>{{ $product->weight }}kg</td>
                                     <td>
                                         <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-info me-1">

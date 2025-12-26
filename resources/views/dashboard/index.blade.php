@@ -81,7 +81,8 @@
                                 <div>
                                     <strong>{{ $transaction->customer->name }}</strong>
                                     <br>
-                                    <small class="text-muted">{{ $transaction->transaction_date->format('M d, Y') }}</small>
+                                    <small class="text-muted">{{ 
+                                            \App\Helpers\JalaliHelper::format($transaction->transaction_date) }}</small>
                                 </div>
                                 <div class="text-end">
                                     <span class="badge bg-{{ $transaction->type == 'take' ? 'warning' : 'success' }}">

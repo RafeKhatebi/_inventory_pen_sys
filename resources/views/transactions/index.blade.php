@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('title', 'Transactions')
 
 @section('content')
@@ -34,7 +33,8 @@
                             </span>
                         </td>
                         <td>@currency($transaction->amount)</td>
-                        <td>{{ $transaction->transaction_date }}</td>
+                        {{-- use JalaliHelper --}}
+                        <td>@jalali($transaction->transaction_date)</td>
                         <td>{{ $transaction->note }}</td>
                         <td>
                             <a href="{{ route('transactions.show', $transaction->id) }}" class="btn btn-view btn-sm">

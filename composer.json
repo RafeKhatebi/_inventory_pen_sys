@@ -12,7 +12,8 @@
         "php": "^8.2",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.2",
-        "laravel/tinker": "^2.10.1"
+        "laravel/tinker": "^2.10.1",
+        "morilog/jalali": "^3.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -30,6 +31,9 @@
             "Database\\Seeders\\": "database/seeders/"
         }
     },
+    "files": [
+        "app/Helpers/JalaliHelper.php"
+    ],
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
