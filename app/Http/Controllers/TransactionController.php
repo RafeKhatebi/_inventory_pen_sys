@@ -46,17 +46,6 @@ class TransactionController extends Controller
 
         $customer = Customer::find($request->customer_id);
 
-        // Check credit limit for 'take' transactions
-        if ($request->type === 'take') {
-            if (!$customer->canTakeCredit($request->amount)) {
-                return back()->withInput()->with(
-                    'error',
-                    'Credit limit exceeded! Current credit: ' . CurrencyHelper::format($customer->getCurrentCredit()) .
-                    ', Limit: ' . CurrencyHelper::format($customer->credit_limit)
-                );
-            }
-        }
-
         $transaction = Transaction::create($request->all());
 
         ActivityLog::log(
@@ -67,7 +56,7 @@ class TransactionController extends Controller
         );
 
         return redirect()->route('transactions.index')
-            ->with('success', 'Transaction recorded successfully!');
+            ->with('success', 'تراکنش با موفقیت ثبت شد!');
     }
 
     public function show($id)
