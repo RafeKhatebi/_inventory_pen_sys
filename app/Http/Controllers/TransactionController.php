@@ -13,18 +13,18 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
         $query = Transaction::with('customer');
-        
+
         if ($request->has('customer_id') && $request->customer_id) {
             $query->where('customer_id', $request->customer_id);
         }
-        
+
         if ($request->has('type') && $request->type) {
             $query->where('type', $request->type);
         }
-        
+
         $transactions = $query->latest()->paginate(15);
         $customers = Customer::all();
-        
+
         return view('transactions.index', compact('transactions', 'customers'));
     }
 
@@ -45,20 +45,26 @@ class TransactionController extends Controller
         ]);
 
         $customer = Customer::find($request->customer_id);
-        
+
         // Check credit limit for 'take' transactions
         if ($request->type === 'take') {
             if (!$customer->canTakeCredit($request->amount)) {
-                return back()->withInput()->with('error', 
-                    'Credit limit exceeded! Current credit: ' . CurrencyHelper::format($customer->getCurrentCredit()) . 
-                    ', Limit: ' . CurrencyHelper::format($customer->credit_limit));
+                return back()->withInput()->with(
+                    'error',
+                    'Credit limit exceeded! Current credit: ' . CurrencyHelper::format($customer->getCurrentCredit()) .
+                    ', Limit: ' . CurrencyHelper::format($customer->credit_limit)
+                );
             }
         }
 
         $transaction = Transaction::create($request->all());
 
-        ActivityLog::log('transaction_created', Transaction::class, $transaction->id, 
-            "Transaction {$request->type}: {$request->amount} for customer: {$customer->name}");
+        ActivityLog::log(
+            'transaction_created',
+            Transaction::class,
+            $transaction->id,
+            "Transaction {$request->type}: {$request->amount} for customer: {$customer->name}"
+        );
 
         return redirect()->route('transactions.index')
             ->with('success', 'Transaction recorded successfully!');

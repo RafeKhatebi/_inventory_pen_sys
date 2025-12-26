@@ -58,7 +58,7 @@ class CustomerController extends Controller
         $currentBalance = $customer->getCurrentCredit();
         $totalTaken = $customer->getTotalTaken();
         $totalGiven = $customer->getTotalGiven();
-        
+
         return view('customers.show', compact('customer', 'transactions', 'currentBalance', 'totalTaken', 'totalGiven'));
     }
 
@@ -85,11 +85,11 @@ class CustomerController extends Controller
         try {
             // Check if customer has any transactions
             $currentBalance = $customer->getCurrentCredit();
-            
+
             if ($currentBalance != 0) {
                 return back()->with('error', 'نمی‌توان مشتری را حذف کرد. مشتری دارای اعتبار یا بدهی است. موجودی فعلی: ' . \App\Helpers\CurrencyHelper::format($currentBalance));
             }
-            
+
             ActivityLog::log('customer_deleted', Customer::class, $customer->id, "Customer '{$customer->name}' deleted via web interface");
 
             $customer->delete();
@@ -99,11 +99,11 @@ class CustomerController extends Controller
             return back()->with('error', 'خطا در حذف مشتری: ' . $e->getMessage());
         }
     }
-    
+
     public function downloadReport(Customer $customer)
     {
         $transactions = $customer->transactions()->orderBy('transaction_date', 'desc')->get();
-        
+
         return view('customers.report', compact('customer', 'transactions'));
     }
 }

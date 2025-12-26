@@ -80,7 +80,7 @@ class ProductController extends Controller
         try {
             // Check if product has stock transactions
             $hasStock = $product->stock()->exists();
-            
+
             if ($hasStock) {
                 return back()->with('error', 'این محصول قابل حذف نیست زیرا در انبار موجود دارد');
             }

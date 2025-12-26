@@ -15,7 +15,7 @@ class BackupController extends Controller
         try {
             $timestamp = now()->format('Y-m-d_H-i-s');
             $filename = "backup_{$timestamp}.sql";
-            
+
             // Simple backup approach - export all data as JSON
             $backup = [
                 'timestamp' => $timestamp,
@@ -27,42 +27,42 @@ class BackupController extends Controller
                 'roles' => DB::table('roles')->get(),
                 'activity_logs' => DB::table('activity_logs')->get()
             ];
-            
+
             Storage::put("backups/{$filename}", json_encode($backup, JSON_PRETTY_PRINT));
-            
+
             ActivityLog::log('backup_created', null, null, "Database backup created: {$filename}");
-            
+
             return response()->json([
                 'message' => 'Backup created successfully',
                 'filename' => $filename,
                 'timestamp' => $timestamp
             ]);
-            
+
         } catch (\Exception $e) {
             return response()->json(['error' => 'Backup failed: ' . $e->getMessage()], 500);
         }
     }
-    
+
     public function listBackups()
     {
         $files = Storage::files('backups');
-        $backups = collect($files)->map(function($file) {
+        $backups = collect($files)->map(function ($file) {
             return [
                 'filename' => basename($file),
                 'size' => Storage::size($file),
                 'created_at' => Storage::lastModified($file)
             ];
         });
-        
+
         return response()->json($backups);
     }
-    
+
     public function downloadBackup($filename)
     {
         if (!Storage::exists("backups/{$filename}")) {
             return response()->json(['error' => 'Backup file not found'], 404);
         }
-        
+
         return Storage::download("backups/{$filename}");
     }
 }

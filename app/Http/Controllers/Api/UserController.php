@@ -26,7 +26,7 @@ class UserController extends Controller
             'password' => 'required|string|min:6',
             'role_id' => 'required|exists:roles,id'
         ]);
-        
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -49,7 +49,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
@@ -73,7 +73,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        
+
         if ($user->id === Auth::id()) {
             return response()->json(['message' => 'Cannot delete your own account'], 400);
         }

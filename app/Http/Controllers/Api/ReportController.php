@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Credit;
 use App\Models\Stock;
 use App\Models\Product;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -105,7 +106,7 @@ class ReportController extends Controller
                 $data = Stock::with('product')->get();
                 break;
             case 'credits':
-                $data = Credit::with('customer')->get();
+                $data = Transaction::with('customer')->get();
                 break;
             default:
                 return response()->json(['error' => 'Invalid export type'], 400);
