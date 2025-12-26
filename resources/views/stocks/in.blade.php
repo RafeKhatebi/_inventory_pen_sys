@@ -3,10 +3,9 @@
 @section('title', 'ورود کالا')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('assets/select2/css/select2.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/select2/css/select2custom.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/select2/css/select2.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/select2/css/select2custom.css') }}" />
 @endpush
-
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -75,6 +74,7 @@
     </div>
 
 @push('scripts')
+<script src="{{ asset('assets/dist/jquery/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('assets/select2/js/select2.min.js') }}"></script>
 <script>
 $(document).ready(function() {
@@ -82,18 +82,7 @@ $(document).ready(function() {
         placeholder: 'جستجو و انتخاب محصول...',
         allowClear: true,
         width: '100%',
-        matcher: function(params, data) {
-            if ($.trim(params.term) === '') {
-                return data;
-            }
-            if (typeof data.text === 'undefined') {
-                return null;
-            }
-            if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) {
-                return data;
-            }
-            return null;
-        }
+        minimumResultsForSearch: 0
     });
 });
 </script>

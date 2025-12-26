@@ -67,6 +67,7 @@
         </div>
     </div>
 @push('scripts')
+<script src="{{ asset('assets/dist/jquery/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('assets/select2/js/select2.min.js') }}"></script>
 <script>
 $(document).ready(function() {
@@ -74,17 +75,20 @@ $(document).ready(function() {
         placeholder: 'جستجو و انتخاب مشتری...',
         allowClear: true,
         width: '100%',
-        matcher: function(params, data) {
-            if ($.trim(params.term) === '') {
-                return data;
+        dropdownAutoWidth: true,
+        tags: false,
+        tokenSeparators: [],
+        minimumResultsForSearch: 0,
+        language: {
+            noResults: function() {
+                return 'نتیجهای یافت نشد';
+            },
+            searching: function() {
+                return 'در حال جستجو...';
+            },
+            inputTooShort: function() {
+                return 'لطفا حداقل یک کاراکتر وارد کنید';
             }
-            if (typeof data.text === 'undefined') {
-                return null;
-            }
-            if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) {
-                return data;
-            }
-            return null;
         }
     });
 });

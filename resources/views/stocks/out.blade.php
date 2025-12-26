@@ -86,6 +86,7 @@
     </div>
 
     @push('scripts')
+        <script src="{{ asset('assets/dist/jquery/jquery-3.6.0.min.js') }}"></script>
         <script src="{{ asset('assets/select2/js/select2.min.js') }}"></script>
         <script>
             $(document).ready(function () {
@@ -93,18 +94,7 @@
                     placeholder: 'جستجو و انتخاب محصول...',
                     allowClear: true,
                     width: '100%',
-                    matcher: function(params, data) {
-                        if ($.trim(params.term) === '') {
-                            return data;
-                        }
-                        if (typeof data.text === 'undefined') {
-                            return null;
-                        }
-                        if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) {
-                            return data;
-                        }
-                        return null;
-                    }
+                    minimumResultsForSearch: 0
                 });
             });
 
