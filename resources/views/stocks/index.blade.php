@@ -27,7 +27,7 @@
         </div>
 
         <div class="row mb-4">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="card bg-primary text-white">
                     <div class="card-body">
                         <h6>Total Products</h6>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="card bg-success text-white">
                     <div class="card-body">
                         <h6>Total Stock</h6>
@@ -43,15 +43,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card bg-warning text-white">
-                    <div class="card-body">
-                        <h6>Low Stock</h6>
-                        <h2>{{ $lowStockCount }}</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="card bg-danger text-white">
                     <div class="card-body">
                         <h6>Out of Stock</h6>
@@ -97,8 +89,8 @@
                                         <span class="fw-bold">{{ $product->current_stock ?? 0 }}</span>
                                         <small class="text-muted d-block">{{ $product->package_type }}</small>
                                     </td>
-                                    <td>${{ number_format($product->price_per_unit, 2) }}</td>
-                                    <td>${{ number_format($product->price_per_carton, 2) }}</td>
+                                    <td>{{ number_format($product->price_per_unit, 0) }}</td>
+                                    <td>{{ number_format($product->price_per_carton, 0) }}</td>
                                     <td>{{ $product->updated_at->format('d M Y') }}</td>
                                     <td>
                                         @if($product->current_stock == 0)
@@ -110,10 +102,12 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('stocks.in') }}?product={{ $product->id }}" class="btn btn-sm btn-success me-1" title="Add Stock">
+                                        <a href="{{ route('stocks.in') }}?product={{ $product->id }}"
+                                            class="btn btn-sm btn-success me-1" title="Add Stock">
                                             <i class="fa fa-plus"></i>
                                         </a>
-                                        <a href="{{ route('stocks.out') }}?product={{ $product->id }}" class="btn btn-sm btn-warning" title="Remove Stock">
+                                        <a href="{{ route('stocks.out') }}?product={{ $product->id }}"
+                                            class="btn btn-sm btn-warning" title="Remove Stock">
                                             <i class="fa fa-minus"></i>
                                         </a>
                                     </td>

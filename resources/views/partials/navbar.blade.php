@@ -2,19 +2,29 @@
     <a href="{{ url('/') }}" class="navbar-brand d-flex d-lg-none me-4">
         <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
     </a>
-    <a href="#" class="sidebar-toggler flex-shrink-0 specific-toggle">
+    {{-- <a href="#" class="sidebar-toggler flex-shrink-0 specific-toggle">
         <i class="fa fa-bars"></i>
-    </a>
-    <form class="d-none d-md-flex ms-4">
-        <input class="form-control border-0" type="search" placeholder="Search products, customers...">
+    </a> --}}
+    <!-- Search Form -->
+    <form method="GET" action="{{ route('products.index') }}" class="d-flex">
+        <input type="search" name="search" class="form-control" placeholder="Search products..."
+            value="{{ request('search') }}">
+        <button type="submit" class="btn btn-outline-primary ms-2">
+            <i class="fa fa-search"></i>
+        </button>
+        @if(request('search'))
+            <a href="{{ route('products.index') }}" class="btn btn-outline-secondary ms-1">
+                <i class="fa fa-times"></i>
+            </a>
+        @endif
     </form>
     <div class="navbar-nav align-items-center ms-auto">
-     
+
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <img class="rounded-circle me-lg-2"
-                    src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=0D8ABC&color=fff" alt="Admin"
-                    style="width: 40px; height: 40px;">
+                    src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=0D8ABC&color=fff"
+                    alt="Admin" style="width: 40px; height: 40px;">
                 <span class="d-none d-lg-inline-flex">{{Auth::user()->name}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">

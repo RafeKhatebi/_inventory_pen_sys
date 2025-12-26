@@ -33,16 +33,13 @@
                                 {{ ucfirst($transaction->type) }}
                             </span>
                         </td>
-                        <td>{{ $transaction->amount }}</td>
+                        <td>@currency($transaction->amount)</td>
                         <td>{{ $transaction->transaction_date }}</td>
                         <td>{{ $transaction->note }}</td>
                         <td>
                             <a href="{{ route('transactions.show', $transaction->id) }}" class="btn btn-view btn-sm">
                                 <i class="fas fa-eye"></i>
                                 View</a>
-                            {{-- <a href="{{ route('transactions.print', $transaction->id) }}" class="btn btn-print btn-sm">
-                                <i class="fas fa-print"></i>
-                                Print</a> --}}
                         </td>
                     </tr>
                 @empty

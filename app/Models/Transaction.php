@@ -39,6 +39,7 @@ class Transaction extends Model
     // Get formatted amount with sign
     public function getFormattedAmountAttribute()
     {
-        return $this->type === 'take' ? '+' . number_format($this->amount, 2) : '-' . number_format($this->amount, 2);
+        $amount = \App\Helpers\CurrencyHelper::formatWithoutCurrency($this->amount);
+        return $this->type === 'give' ? '+' . $amount . ' افغانی' : '-' . $amount . ' افغانی';
     }
 }

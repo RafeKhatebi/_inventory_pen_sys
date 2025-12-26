@@ -13,7 +13,7 @@ class BackupController extends Controller
     public function index()
     {
         $backups = $this->getBackupFiles();
-        return view('settings.backup.index', compact('backups'));
+        return view('backup.index', compact('backups'));
     }
 
     public function create()
@@ -21,7 +21,7 @@ class BackupController extends Controller
         try {
             $filename = 'backup_' . date('Y_m_d_H_i_s') . '.sql';
             $path = storage_path('app/backups/' . $filename);
-            
+
             // Create backups directory if it doesn't exist
             if (!file_exists(storage_path('app/backups'))) {
                 mkdir(storage_path('app/backups'), 0755, true);
@@ -62,11 +62,11 @@ class BackupController extends Controller
     public function download($filename)
     {
         $path = storage_path('app/backups/' . $filename);
-        
+
         if (file_exists($path)) {
             return response()->download($path);
         }
-        
+
         return redirect()->route('backup.index')
             ->with('error', 'Backup file not found');
     }
@@ -74,13 +74,13 @@ class BackupController extends Controller
     public function delete($filename)
     {
         $path = storage_path('app/backups/' . $filename);
-        
+
         if (file_exists($path)) {
             unlink($path);
             return redirect()->route('backup.index')
                 ->with('success', 'Backup deleted successfully');
         }
-        
+
         return redirect()->route('backup.index')
             ->with('error', 'Backup file not found');
     }
@@ -88,14 +88,14 @@ class BackupController extends Controller
     private function getBackupFiles()
     {
         $backupPath = storage_path('app/backups');
-        
+
         if (!file_exists($backupPath)) {
             return [];
         }
-        
+
         $files = scandir($backupPath);
         $backups = [];
-        
+
         foreach ($files as $file) {
             if ($file !== '.' && $file !== '..' && pathinfo($file, PATHINFO_EXTENSION) === 'sql') {
                 $backups[] = [
@@ -105,7 +105,7 @@ class BackupController extends Controller
                 ];
             }
         }
-        
+
         return array_reverse($backups);
     }
 

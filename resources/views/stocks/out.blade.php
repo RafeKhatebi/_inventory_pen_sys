@@ -92,7 +92,19 @@
                 $('.select2').select2({
                     placeholder: 'Search and select a product...',
                     allowClear: true,
-                    width: '100%'
+                    width: '100%',
+                    matcher: function(params, data) {
+                        if ($.trim(params.term) === '') {
+                            return data;
+                        }
+                        if (typeof data.text === 'undefined') {
+                            return null;
+                        }
+                        if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) {
+                            return data;
+                        }
+                        return null;
+                    }
                 });
             });
 

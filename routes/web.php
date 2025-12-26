@@ -84,7 +84,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/backup/delete/{filename}', [BackupController::class, 'delete'])->name('backup.delete');
 
 });
-
-
 // Home redirect to dashboard
 Route::redirect('/home', '/dashboard');

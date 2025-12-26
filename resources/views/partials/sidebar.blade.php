@@ -5,15 +5,15 @@
             <!-- Logo/Brand -->
             <a href="{{ route('dashboard') }}" class="navbar-brand p-0 m-0">
                 <h3 class="text-primary m-0">
-                    <i class="fa fa-boxes me-2"></i>INVENTORY
+                    <i class="fa fa-boxes me-2"></i>{{ config('app.name', 'Inventory') }}
                 </h3>
             </a>
         </div>
         <!-- User Info Below -->
         <div class="px-4 mb-4">
             <div class="text-center">
-                <h6 class="mb-0 fw-bold">Admin User</h6>
-                <span class="text-primary small">Administrator</span>
+                <h6 class="mb-0 fw-bold">{{ Auth::user()->name }}</h6>
+                <span class="text-primary small">{{ Auth::user()->email }}</span>
             </div>
         </div>
 
@@ -26,7 +26,6 @@
                     class="nav-item nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <i class="fa fa-tachometer-alt me-2"></i>Dashboard
                 </a>
-
                 <!-- Products -->
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('products.*') ? 'active' : '' }}"
@@ -114,15 +113,13 @@
                             class="dropdown-item {{ request()->routeIs('reports.inventory.index') ? 'active' : '' }}">
                             <i class="fa fa-warehouse me-2"></i>Inventory Report
                         </a>
-
-                        <a href="{{ route('reports.complete-summary.index') }}"
-                            class="dropdown-item {{ request()->routeIs('reports.complete-summary.index') ? 'active' : '' }}">
-                            <i class="fa fa-exchange-alt me-2"></i>Transaction Report
-                        </a>
                         <a href="{{ route('reports.customers.index') }}"
                             class="dropdown-item {{ request()->routeIs('reports.customers.index') ? 'active' : '' }}">
                             <i class="fa fa-users me-2"></i>Customer Report</a>
-
+                        <a href="{{ route('reports.complete-summary.index') }}"
+                            class="dropdown-item {{ request()->routeIs('reports.complete-summary.index') ? 'active' : '' }}">
+                            <i class="fa fa-exchange-alt me-2"></i>Complete Report
+                        </a>
                     </div>
                 </div>
                 {{-- Users --}}

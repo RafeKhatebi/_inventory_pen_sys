@@ -47,7 +47,7 @@
                                     <td>{{ $customer->name }}</td>
                                     <td>{{ $customer->phone }}</td>
                                     <td>{{ $customer->address }}</td>
-                                    <td>{{ $customer->credit_limit }}</td>
+                                    <td>@currency($customer->credit_limit)</td>
                                     <td>
                                         <span class="badge bg-success">Active</span>
                                     </td>

@@ -48,4 +48,15 @@ class Customer extends Model
         $currentCredit = $this->getCurrentCredit();
         return ($currentCredit + $amount) <= $this->credit_limit;
     }
+
+    // Format currency with Afghan currency
+    public function getFormattedCreditLimitAttribute()
+    {
+        return \App\Helpers\CurrencyHelper::format($this->credit_limit);
+    }
+
+    public function getFormattedCurrentCreditAttribute()
+    {
+        return \App\Helpers\CurrencyHelper::format($this->getCurrentCredit());
+    }
 }

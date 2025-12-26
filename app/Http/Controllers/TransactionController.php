@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Transaction;
 use App\Models\ActivityLog;
+use App\Helpers\CurrencyHelper;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -49,8 +50,8 @@ class TransactionController extends Controller
         if ($request->type === 'take') {
             if (!$customer->canTakeCredit($request->amount)) {
                 return back()->withInput()->with('error', 
-                    'Credit limit exceeded! Current credit: ' . number_format($customer->getCurrentCredit(), 2) . 
-                    ', Limit: ' . number_format($customer->credit_limit, 2));
+                    'Credit limit exceeded! Current credit: ' . CurrencyHelper::format($customer->getCurrentCredit()) . 
+                    ', Limit: ' . CurrencyHelper::format($customer->credit_limit));
             }
         }
 

@@ -13,9 +13,8 @@
             <div class="d-flex gap-2">
                 <!-- Search Form -->
                 <form method="GET" action="{{ route('products.index') }}" class="d-flex">
-                    <input type="search" name="search" class="form-control" 
-                           placeholder="Search products..." 
-                           value="{{ request('search') }}">
+                    <input type="search" name="search" class="form-control" placeholder="Search products..."
+                        value="{{ request('search') }}">
                     <button type="submit" class="btn btn-outline-primary ms-2">
                         <i class="fa fa-search"></i>
                     </button>
@@ -84,8 +83,8 @@
                                     </td>
                                     <td>{{ $product->type }}</td>
                                     <td>{{ $product->package_type }}</td>
-                                    <td>${{ number_format($product->price_per_unit, 2) }}</td>
-                                    <td>${{ number_format($product->price_per_carton, 2) }}</td>
+                                    <td>{{ number_format($product->price_per_unit, 2) }}</td>
+                                    <td>{{ number_format($product->price_per_carton, 2) }}</td>
                                     <td>{{ $product->weight }}kg</td>
                                     <td>
                                         <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-info me-1">

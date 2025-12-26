@@ -59,13 +59,15 @@
             </div>
 
             <!-- Credit History -->
+            {{-- updated to use dynamic data --}}
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0"><i class="fa fa-credit-card me-2"></i>Credit History</h5>
-                        <button class="btn btn-primary btn-sm">
-                            <i class="fa fa-plus me-1"></i> Add Transaction
-                        </button>
+                        {{-- <a href="{{ route('customers.downloadReport', $customer->id) }}"
+                            class="btn btn-sm btn-outline-primary">
+                            <i class="fa fa-download me-1"></i> Download Report
+                        </a> --}}
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -83,38 +85,14 @@
                                 <tbody>
                                     <tr>
                                         <td>{{ date('M d, Y') }}</td>
-                                        <td>Product Purchase</td>
-                                        <td class="text-danger">$500.00</td>
-                                        <td><span class="badge bg-warning">Sale</span></td>
-                                        <td><span class="badge bg-danger">Unpaid</span></td>
+                                        <td>{{ $customer->name }}</td>
+                                        <td class="text-danger">{{ number_format($customer->credit_limit, 0) }}</td>
+                                        <td><span class="badge bg-warning">{{ $customer->type }}</span></td>
+                                        <td><span class="badge bg-danger">{{ $customer->status }}</span></td>
                                         <td>
                                             <button class="btn btn-sm btn-success">
                                                 <i class="fa fa-check"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-primary">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ date('M d, Y', strtotime('-1 day')) }}</td>
-                                        <td>Payment Received</td>
-                                        <td class="text-success">$300.00</td>
-                                        <td><span class="badge bg-success">Payment</span></td>
-                                        <td><span class="badge bg-success">Paid</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-primary">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ date('M d, Y', strtotime('-2 days')) }}</td>
-                                        <td>Product Purchase</td>
-                                        <td class="text-danger">$1,300.00</td>
-                                        <td><span class="badge bg-warning">Sale</span></td>
-                                        <td><span class="badge bg-success">Paid</span></td>
-                                        <td>
                                             <button class="btn btn-sm btn-primary">
                                                 <i class="fa fa-eye"></i>
                                             </button>

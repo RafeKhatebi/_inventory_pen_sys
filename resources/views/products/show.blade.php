@@ -47,11 +47,11 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label text-muted">Price Per Unit</label>
-                                <p class="fw-bold text-success">${{ number_format($product->price_per_unit, 2) }}</p>
+                                <p class="fw-bold text-success">{{ number_format($product->price_per_unit, 2) }}</p>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label text-muted">Price Per Carton</label>
-                                <p class="fw-bold text-success">${{ number_format($product->price_per_carton, 2) }}</p>
+                                <p class="fw-bold text-success">{{ number_format($product->price_per_carton, 2) }}</p>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label text-muted">Quantity Per Carton</label>
@@ -78,10 +78,10 @@
                             <p class="text-muted">Current Stock</p>
                         </div>
                         <div class="d-grid gap-2">
-                            <a href="{{ route('stocks.in.create') }}" class="btn btn-success">
+                            <a href="{{ route('stocks.in') }}" class="btn btn-success">
                                 <i class="fa fa-plus me-1"></i> Stock In
                             </a>
-                            <a href="{{ route('stocks.out.create') }}" class="btn btn-warning">
+                            <a href="{{ route('stocks.out') }}" class="btn btn-warning">
                                 <i class="fa fa-minus me-1"></i> Stock Out
                             </a>
                         </div>

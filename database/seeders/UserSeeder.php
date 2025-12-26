@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     {
         // Create admin role
         $adminRole = Role::create(['name' => 'admin']);
-        
+
         // Create admin user
         User::create([
             'name' => 'Admin User',
