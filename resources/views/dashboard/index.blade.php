@@ -7,7 +7,7 @@
         <!-- Page Header -->
         <!-- Stats Cards -->
         <div class="row g-4 mb-4 mt-4">
-            <div class="col-sm-6 col-xl-3">
+            <div class="col-sm-6 col-xl-4">
                 <div class="bg-light rounded p-4">
                     <div class="d-flex align-items-center">
                         <div class="rounded-circle bg-primary p-3 me-3">
@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-xl-3">
+            <div class="col-sm-6 col-xl-4">
                 <div class="bg-light rounded p-4">
                     <div class="d-flex align-items-center">
                         <div class="rounded-circle bg-success p-3 me-3">
@@ -33,20 +33,20 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-xl-3">
+            {{-- <div class="col-sm-6 col-xl-4">
                 <div class="bg-light rounded p-4">
                     <div class="d-flex align-items-center">
                         <div class="rounded-circle bg-warning p-3 me-3">
                             <i class="fa fa-money-bill-wave fa-2x text-white"></i>
                         </div>
                         <div>
-                            <p class="mb-1">ارزش موجودی</p>
-                            <h4 class="mb-0">@currency($totalStockValue)</h4>
+                            <p class="mb-1">پرداخت ها امروز</p>
+                            <h4 class="mb-0">@currency($todayTransactions)</h4>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-6 col-xl-3">
+            </div> --}}
+            <div class="col-sm-6 col-xl-4">
                 <div class="bg-light rounded p-4">
                     <div class="d-flex align-items-center">
                         <div class="rounded-circle bg-info p-3 me-3">

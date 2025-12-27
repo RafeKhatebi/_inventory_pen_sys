@@ -18,7 +18,7 @@
 
         <!-- Summary Cards -->
         <div class="row mb-4">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="card bg-primary text-white">
                     <div class="card-body">
                         <h6>کل محصولات</h6>
@@ -26,15 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card bg-success text-white">
-                    <div class="card-body">
-                        <h6>ارزش موجودی</h6>
-                        <h2>@currency($totalStockValue)</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="card bg-info text-white">
                     <div class="card-body">
                         <h6>کل مشتریان</h6>
@@ -42,7 +34,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="card bg-warning text-white">
                     <div class="card-body">
                         <h6>کل اعتبارات</h6>
